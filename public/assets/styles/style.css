@@ -1003,9 +1003,7 @@ section.s {
 .a-leaf.corner {
   right: var(--cx, 28px);
   bottom: var(--cy, 24px);
-  animation: cornerLeafBreeze ease-in-out infinite;
-  transform: rotate(var(--rot, -24deg));
-  transform-origin: 20% 80%
+  animation: leafCornerDrift linear infinite
 }
 
 @keyframes ecoWind {
@@ -2162,21 +2160,27 @@ footer::before {
   display: none !important
 }
 
-@keyframes cornerLeafBreeze {
+@keyframes leafCornerDrift {
 
-  0%,
+  0% {
+    transform: translate(42px, var(--y0, 0px)) rotate(0deg);
+    opacity: 0
+  }
+
+  8% {
+    opacity: var(--op, .5)
+  }
+
+  50% {
+    transform: translate(-42px, calc(var(--y0, 0px) - 30px)) rotate(180deg)
+  }
+
+  92% {
+    opacity: var(--op, .5)
+  }
+
   100% {
-    transform: translate(0, 0) rotate(var(--rot, -24deg));
-    opacity: .28
-  }
-
-  45% {
-    transform: translate(-18px, -12px) rotate(calc(var(--rot, -24deg) + 18deg));
-    opacity: .78
-  }
-
-  70% {
-    transform: translate(-8px, -22px) rotate(calc(var(--rot, -24deg) - 10deg));
-    opacity: .52
+    transform: translate(-124px, calc(var(--y0, 0px) + 20px)) rotate(360deg);
+    opacity: 0
   }
 }
