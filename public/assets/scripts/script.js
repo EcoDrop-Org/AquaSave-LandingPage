@@ -572,21 +572,22 @@
       eco.appendChild(l);
     }
     const cornerLeaves = [
-      ['t', -8, 2, -128, 6.2, -1.4],
-      ['', 22, 4, -104, 5.8, -3.1],
-      ['s', 54, 18, -145, 6.8, -2.2],
-      ['t', 6, 34, -82, 7.1, -4.5],
-      ['', 38, 44, -118, 6.4, -1.8],
-      ['s', 82, 30, -96, 5.6, -3.7],
-      ['', 70, -2, -134, 6.9, -5.2],
-      ['s', 16, 70, -74, 5.9, -2.9]
+      ['t', -30, -14, -4, 0.62, 8.5, -1.4],
+      ['', -8, -6, 10, 0.55, 9.2, -3.1],
+      ['s', 18, 4, -12, 0.46, 8.8, -2.2],
+      ['t', -18, 22, 18, 0.58, 10.1, -4.5],
+      ['', 8, 34, -8, 0.5, 9.6, -1.8],
+      ['s', 34, 18, 14, 0.44, 8.9, -3.7],
+      ['', 20, 58, -18, 0.52, 10.4, -5.2],
+      ['s', -2, 72, 8, 0.42, 9.1, -2.9]
     ];
-    cornerLeaves.forEach(([size, x, y, rot, duration, delay]) => {
+    cornerLeaves.forEach(([size, x, y, y0, op, duration, delay]) => {
       const l = document.createElement('span');
       l.className = 'a-leaf corner ' + size;
       l.style.setProperty('--cx', x + 'px');
       l.style.setProperty('--cy', y + 'px');
-      l.style.setProperty('--rot', rot + 'deg');
+      l.style.setProperty('--y0', y0 + 'px');
+      l.style.setProperty('--op', op);
       l.style.animationDuration = duration + 's';
       l.style.animationDelay = delay + 's';
       eco.appendChild(l);
