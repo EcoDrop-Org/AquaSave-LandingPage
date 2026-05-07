@@ -948,30 +948,6 @@ section.s {
   background: radial-gradient(circle at 80% 20%, rgba(159, 203, 59, .14), transparent 60%), radial-gradient(circle at 15% 85%, rgba(63, 167, 214, .08), transparent 55%)
 }
 
-.about-card.eco .about-anim::before,
-.about-card.eco .about-anim::after {
-  content: "";
-  position: absolute;
-  right: 26px;
-  border-top: 1px solid rgba(191, 223, 96, .26);
-  border-radius: 50%;
-  opacity: .55;
-  animation: ecoWind 7.8s ease-in-out infinite
-}
-
-.about-card.eco .about-anim::before {
-  top: 92px;
-  width: 126px;
-  height: 30px
-}
-
-.about-card.eco .about-anim::after {
-  top: 142px;
-  width: 96px;
-  height: 24px;
-  animation-delay: -3.2s
-}
-
 .about-card.aqua .about-anim {
   background: radial-gradient(circle at 20% 15%, rgba(63, 167, 214, .12), transparent 60%), radial-gradient(circle at 85% 90%, rgba(159, 203, 59, .06), transparent 55%)
 }
@@ -1004,34 +980,6 @@ section.s {
   right: var(--cx, 28px);
   bottom: var(--cy, 24px);
   animation: leafCornerDrift linear infinite
-}
-
-@keyframes ecoWind {
-
-  0%,
-  100% {
-    transform: translateX(0) scaleX(.82);
-    opacity: .28
-  }
-
-  50% {
-    transform: translateX(-14px) scaleX(1);
-    opacity: .6
-  }
-}
-
-@keyframes ecoWind {
-
-  0%,
-  100% {
-    transform: translateX(0) scaleX(.82);
-    opacity: .28
-  }
-
-  50% {
-    transform: translateX(-14px) scaleX(1);
-    opacity: .6
-  }
 }
 
 @keyframes leafDrift {
