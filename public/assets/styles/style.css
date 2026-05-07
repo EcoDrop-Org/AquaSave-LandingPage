@@ -703,6 +703,8 @@ section.s {
   text-align: left;
   position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
   transition: transform .3s ease, box-shadow .3s ease
 }
 
@@ -729,11 +731,12 @@ section.s {
 
 .step p {
   color: var(--muted);
-  font-size: 14.5px
+  font-size: 14.5px;
+  margin-bottom: 24px
 }
 
 .step .vis {
-  margin-top: 24px;
+  margin-top: auto;
   height: 140px;
   border-radius: 16px;
   background: linear-gradient(135deg, var(--paper-2), #fff);
@@ -995,6 +998,14 @@ section.s {
   height: 24px;
   opacity: .75;
   background: linear-gradient(135deg, #cdee70, #3a8c5a)
+}
+
+.a-leaf.corner {
+  right: var(--cx, 28px);
+  bottom: var(--cy, 24px);
+  animation: cornerLeafBreeze ease-in-out infinite;
+  transform: rotate(var(--rot, -24deg));
+  transform-origin: 20% 80%
 }
 
 @keyframes ecoWind {
@@ -2149,4 +2160,23 @@ footer::before {
 
 .about-card .badge {
   display: none !important
+}
+
+@keyframes cornerLeafBreeze {
+
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(var(--rot, -24deg));
+    opacity: .28
+  }
+
+  45% {
+    transform: translate(-16px, -8px) rotate(calc(var(--rot, -24deg) + 18deg));
+    opacity: .78
+  }
+
+  70% {
+    transform: translate(-6px, -16px) rotate(calc(var(--rot, -24deg) - 10deg));
+    opacity: .52
+  }
 }
