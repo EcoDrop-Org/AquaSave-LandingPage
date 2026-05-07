@@ -2171,12 +2171,12 @@ footer::before {
   }
 
   45% {
-    transform: translate(-16px, -8px) rotate(calc(var(--rot, -24deg) + 18deg));
+    transform: translate(-18px, -12px) rotate(calc(var(--rot, -24deg) + 18deg));
     opacity: .78
   }
 
   70% {
-    transform: translate(-6px, -16px) rotate(calc(var(--rot, -24deg) - 10deg));
+    transform: translate(-8px, -22px) rotate(calc(var(--rot, -24deg) - 10deg));
     opacity: .52
   }
 }
