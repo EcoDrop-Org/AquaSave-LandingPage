@@ -1,0 +1,788 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>AquaSave</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="icon" type="image/png" href="public/assets/images/AquaSaveLogo.PNG" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="public/assets/styles/style.css" />
+</head>
+
+<body>
+
+  <nav class="top">
+    <div class="container inner">
+      <a href="#" class="brand" aria-label="AquaSave home">
+        <span class="lockup">
+          <img class="logo" src="public/assets/images/AquaSaveLogo.PNG" alt="AquaSave" />
+          <span class="name">
+            <span>AquaSave</span>
+            <span class="by">by EcoDrop</span>
+          </span>
+        </span>
+      </a>
+      <ul>
+        <li><a href="#benefits" data-i18n="nav_benefits">Benefits</a></li>
+        <li><a href="#how" data-i18n="nav_how">How it works</a></li>
+        <li><a href="#features" data-i18n="nav_features">Features</a></li>
+        <li><a href="#about" data-i18n="nav_about">About</a></li>
+        <li><a href="help.html" data-i18n="nav_help">Help</a></li>
+        <li><a href="faq.html" data-i18n="nav_faq">FAQ</a></li>
+      </ul>
+      <div class="nav-actions">
+        <div class="lang" id="langToggle" role="group" aria-label="Language">
+          <span class="pill" aria-hidden="true"></span>
+          <button data-lang="en" class="is-active">
+            <span class="flag" aria-hidden="true">
+              <svg viewBox="0 0 60 30">
+                <clipPath id="t">
+                  <path d="M0 0 v30 h60 V0 z" />
+                </clipPath>
+                <clipPath id="s">
+                  <path d="M30 15 h30 v15 z M0 15 v15 h30 z M0 0 v15 h30 z M30 0 h30 v15 z" />
+                </clipPath>
+                <g clip-path="url(#t)">
+                  <path d="M0 0 v30 h60 V0 z" fill="#012169" />
+                  <path d="M0 0 L60 30 M60 0 L0 30" stroke="#fff" stroke-width="6" />
+                  <path d="M0 0 L60 30 M60 0 L0 30" clip-path="url(#s)" stroke="#C8102E" stroke-width="4" />
+                  <path d="M30 0 v30 M0 15 h60" stroke="#fff" stroke-width="10" />
+                  <path d="M30 0 v30 M0 15 h60" stroke="#C8102E" stroke-width="6" />
+                </g>
+              </svg>
+            </span>
+            EN
+          </button>
+          <button data-lang="es">
+            <span class="flag" aria-hidden="true">
+              <svg viewBox="0 0 60 40">
+                <rect width="60" height="40" fill="#AA151B" />
+                <rect y="10" width="60" height="20" fill="#F1BF00" />
+              </svg>
+            </span>
+            ES
+          </button>
+        </div>
+        <a href="#cta" class="btn btn-primary" data-i18n="nav_cta">Get started</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="bg-orbs">
+      <div class="orb a"></div>
+      <div class="orb b"></div>
+      <div class="orb c"></div>
+    </div>
+    <div class="container grid">
+      <div class="hero-copy">
+        <h1 class="reveal">
+          <span data-i18n="hero_h1_a">Smart irrigation,</span><br />
+          <span class="accent" data-i18n="hero_h1_b">less water waste.</span>
+        </h1>
+        <p class="lead reveal" data-delay="160" data-i18n="hero_lead">
+          Monitor soil conditions, control watering from anywhere, and water only when your plants really need it — all
+          from one app.
+        </p>
+        <div class="cta-row reveal" data-delay="240">
+          <a href="#cta" class="btn btn-leaf" data-i18n="cta_get">Get started</a>
+          <a href="#how" class="btn btn-ghost">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+              <path d="M6 4l14 8-14 8V4z" fill="currentColor" />
+            </svg>
+            <span data-i18n="cta_how">See how it works</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="scene-stage reveal" data-delay="200">
+        <svg class="conn" viewBox="0 0 500 580" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M70 130 C 160 160, 200 200, 250 240" stroke="#3FA7D6" stroke-width="1.5" fill="none" opacity=".55" />
+          <path d="M40 360 C 130 340, 180 320, 240 290" stroke="#9FCB3B" stroke-width="1.5" fill="none" opacity=".55" />
+          <path d="M450 80 C 380 130, 340 180, 300 220" stroke="#8B5E3C" stroke-width="1.5" fill="none" opacity=".5" />
+        </svg>
+
+        <div class="data-token t1">
+          <div class="ic">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+              <path d="M4 20 C 4 10, 12 4, 20 4 C 20 14, 14 20, 4 20 Z" fill="currentColor" />
+            </svg>
+          </div>
+          <div>
+            <div class="lab" data-i18n="tok_moist">Soil moisture</div>
+            <div class="v">62<span style="font-size:11px;color:var(--muted);font-weight:500">%</span></div>
+          </div>
+        </div>
+
+        <div class="data-token t2">
+          <div class="ic">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+              <path d="M12 3 C 16 9, 19 13, 19 16.5 C 19 20, 16 22, 12 22 C 8 22, 5 20, 5 16.5 C 5 13, 8 9, 12 3 Z"
+                fill="currentColor" />
+            </svg>
+          </div>
+          <div>
+            <div class="lab" data-i18n="tok_flow">Flow</div>
+            <div class="v">1.4<span style="font-size:11px;color:var(--muted);font-weight:500">L/m</span></div>
+          </div>
+        </div>
+
+        <div class="data-token t3">
+          <div class="ic">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2" fill="none" />
+              <path d="M12 7 v5 l3 2" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" />
+            </svg>
+          </div>
+          <div>
+            <div class="lab" data-i18n="tok_temp">Soil temp</div>
+            <div class="v">21<span style="font-size:11px;color:var(--muted);font-weight:500">°C</span></div>
+          </div>
+        </div>
+
+        <div class="scene" id="scene">
+          <div class="pot-wrap">
+            <div id="3d-planter-container"></div>
+            <svg class="pot3d" viewBox="0 0 380 500" aria-hidden="true" style="display:none">
+              <defs>
+                <linearGradient id="potBody" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stop-color="#a85a2e" />
+                  <stop offset="20%" stop-color="#d97a3f" />
+                  <stop offset="55%" stop-color="#c66a35" />
+                  <stop offset="100%" stop-color="#7e3f1c" />
+                </linearGradient>
+                <linearGradient id="potRim" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stop-color="#a85a2e" />
+                  <stop offset="25%" stop-color="#e08246" />
+                  <stop offset="60%" stop-color="#c46a35" />
+                  <stop offset="100%" stop-color="#7e3f1c" />
+                </linearGradient>
+                <radialGradient id="soilG" cx="50%" cy="40%" r="70%">
+                  <stop offset="0%" stop-color="#7fb04a" />
+                  <stop offset="60%" stop-color="#4d7a30" />
+                  <stop offset="100%" stop-color="#2d4a1c" />
+                </radialGradient>
+                <radialGradient id="leafGA" cx="35%" cy="30%" r="80%">
+                  <stop offset="0%" stop-color="#a8d960" />
+                  <stop offset="55%" stop-color="#5fa840" />
+                  <stop offset="100%" stop-color="#2c6324" />
+                </radialGradient>
+                <radialGradient id="leafGB" cx="40%" cy="30%" r="80%">
+                  <stop offset="0%" stop-color="#9fcf52" />
+                  <stop offset="55%" stop-color="#4f9836" />
+                  <stop offset="100%" stop-color="#26591f" />
+                </radialGradient>
+                <linearGradient id="stm" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#c79b3c" />
+                  <stop offset="100%" stop-color="#7a5a20" />
+                </linearGradient>
+                <radialGradient id="shdw" cx="50%" cy="50%" r="50%">
+                  <stop offset="0" stop-color="rgba(14,31,26,.55)" />
+                  <stop offset="1" stop-color="rgba(14,31,26,0)" />
+                </radialGradient>
+              </defs>
+
+              <ellipse cx="190" cy="478" rx="120" ry="14" fill="url(#shdw)" />
+
+              <g transform="translate(190 300)" class="plant-grp">
+                <path d="M0 0 C -3 -25, -10 -50, -18 -70" stroke="url(#stm)" stroke-width="5" fill="none"
+                  stroke-linecap="round" />
+                <path d="M0 0 C 3 -25, 10 -50, 18 -75" stroke="url(#stm)" stroke-width="5" fill="none"
+                  stroke-linecap="round" />
+                <path d="M0 -5 C -25 -25, -55 -40, -80 -55" stroke="url(#stm)" stroke-width="5" fill="none"
+                  stroke-linecap="round" />
+                <path d="M0 -5 C 25 -25, 55 -40, 80 -55" stroke="url(#stm)" stroke-width="5" fill="none"
+                  stroke-linecap="round" />
+                <path d="M0 -10 C 0 -50, 0 -90, 0 -120" stroke="url(#stm)" stroke-width="5" fill="none"
+                  stroke-linecap="round" />
+
+                <g class="leaf-svg" style="--r0:-1.5deg;--r1:1.5deg;animation-duration:4.5s;animation-delay:-1.5s">
+                  <ellipse cx="0" cy="-210" rx="34" ry="58" fill="url(#leafGA)" />
+                  <ellipse cx="-9" cy="-228" rx="5" ry="18" fill="#e0f3a0" opacity=".5" />
+                </g>
+
+                <g class="leaf-svg" style="--r0:-3deg;--r1:5deg;animation-duration:5s">
+                  <ellipse cx="-160" cy="-35" rx="58" ry="32" transform="rotate(-30 -160 -35)" fill="url(#leafGA)" />
+                  <ellipse cx="-175" cy="-44" rx="16" ry="6" transform="rotate(-30 -175 -44)" fill="#e0f3a0"
+                    opacity=".5" />
+                </g>
+
+                <g class="leaf-svg" style="--r0:3deg;--r1:-5deg;animation-duration:5.4s;animation-delay:-1.2s">
+                  <ellipse cx="160" cy="-40" rx="58" ry="32" transform="rotate(30 160 -40)" fill="url(#leafGB)" />
+                  <ellipse cx="145" cy="-50" rx="16" ry="6" transform="rotate(30 145 -50)" fill="#e0f3a0"
+                    opacity=".48" />
+                </g>
+
+                <g class="leaf-svg" style="--r0:-2deg;--r1:4deg;animation-duration:4.8s;animation-delay:-2.5s">
+                  <ellipse cx="-110" cy="-130" rx="48" ry="28" transform="rotate(-50 -110 -130)" fill="url(#leafGA)" />
+                  <ellipse cx="-122" cy="-145" rx="13" ry="5" transform="rotate(-50 -122 -145)" fill="#e0f3a0"
+                    opacity=".5" />
+                </g>
+
+                <g class="leaf-svg" style="--r0:2deg;--r1:-4deg;animation-duration:5.2s;animation-delay:-3.2s">
+                  <ellipse cx="110" cy="-135" rx="48" ry="28" transform="rotate(50 110 -135)" fill="url(#leafGB)" />
+                  <ellipse cx="122" cy="-150" rx="13" ry="5" transform="rotate(50 122 -150)" fill="#e0f3a0"
+                    opacity=".48" />
+                </g>
+              </g>
+
+              <ellipse cx="190" cy="318" rx="92" ry="14" fill="url(#soilG)" />
+
+              <path d="M 100 322
+                     L 118 470
+                     Q 120 482, 134 484
+                     L 246 484
+                     Q 260 482, 262 470
+                     L 280 322
+                     Z" fill="url(#potBody)" />
+
+              <path d="M 116 340 L 132 470" stroke="rgba(255,220,170,.45)" stroke-width="14" fill="none"
+                stroke-linecap="round" />
+              <path d="M 268 340 L 250 472" stroke="rgba(0,0,0,.32)" stroke-width="16" fill="none"
+                stroke-linecap="round" />
+
+              <ellipse cx="190" cy="478" rx="58" ry="6" fill="rgba(0,0,0,.3)" />
+
+              <path d="M 96 318
+                     Q 96 302, 190 302
+                     Q 284 302, 284 318
+                     L 280 332
+                     Q 280 346, 190 346
+                     Q 100 346, 100 332
+                     Z" fill="url(#potRim)" />
+              <path d="M 120 312 Q 190 304, 260 312" stroke="rgba(255,235,200,.55)" stroke-width="2.5" fill="none"
+                stroke-linecap="round" />
+              <ellipse cx="190" cy="318" rx="94" ry="14" fill="none" stroke="rgba(0,0,0,.35)" stroke-width="2" />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+  <section class="s" id="benefits">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="mono" data-i18n="ben_eyebrow">Why AquaSave</div>
+        <h2 data-i18n="ben_title">Watering that works smarter for you.</h2>
+        <p data-i18n="ben_lead">Stop guessing. Get the data and the controls you need to keep plants healthy and water
+          bills low.</p>
+      </div>
+      <div class="benefits-grid reveal-stagger">
+        <div class="b-card water">
+          <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+              <path d="M12 3 C 16 9, 19 13, 19 16.5 C 19 20, 16 22, 12 22 C 8 22, 5 20, 5 16.5 C 5 13, 8 9, 12 3 Z"
+                fill="#1F6E96" />
+              <path d="M9 17 C 9.5 19, 10.5 19.8, 12 20" stroke="#fff" stroke-width="1.4" stroke-linecap="round"
+                fill="none" />
+            </svg></div>
+          <h3 data-i18n="ben1_t">Save water</h3>
+          <p data-i18n="ben1_d">Irrigate based on real soil data and skip cycles when rain is on the way.</p>
+        </div>
+        <div class="b-card leaf">
+          <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+              <path d="M4 20 C 4 10, 12 4, 20 4 C 20 14, 14 20, 4 20 Z" fill="#2F7D4F" />
+              <path d="M5 19 C 10 14, 15 10, 19 5" stroke="#9FCB3B" stroke-width="1.4" fill="none"
+                stroke-linecap="round" />
+            </svg></div>
+          <h3 data-i18n="ben2_t">Protect your plants</h3>
+          <p data-i18n="ben2_d">Get critical alerts when soil moisture drops or rises beyond healthy levels.</p>
+        </div>
+        <div class="b-card water">
+          <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+              <rect x="6" y="3" width="12" height="18" rx="3" fill="#3FA7D6" />
+              <rect x="9" y="6" width="6" height="9" rx="1" fill="#fff" opacity=".9" />
+              <circle cx="12" cy="18" r="1.2" fill="#fff" />
+            </svg></div>
+          <h3 data-i18n="ben3_t">Control from anywhere</h3>
+          <p data-i18n="ben3_d">Open valves, pause watering, or run a quick cycle from phone or browser.</p>
+        </div>
+        <div class="b-card earth">
+          <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+              <path d="M3 14 C 6 10, 9 16, 12 12 C 15 8, 18 14, 21 10" stroke="#3FA7D6" stroke-width="2" fill="none"
+                stroke-linecap="round" />
+              <circle cx="18" cy="6" r="3" fill="#F4B95A" />
+            </svg></div>
+          <h3 data-i18n="ben4_t">Avoid watering before rain</h3>
+          <p data-i18n="ben4_d">Forecast-aware schedules pause irrigation when nature is about to do the job.</p>
+        </div>
+        <div class="b-card leaf">
+          <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+              <rect x="3" y="13" width="3" height="8" fill="#2F7D4F" rx="1" />
+              <rect x="8" y="9" width="3" height="12" fill="#2F7D4F" rx="1" />
+              <rect x="13" y="5" width="3" height="16" fill="#9FCB3B" rx="1" />
+              <rect x="18" y="11" width="3" height="10" fill="#2F7D4F" rx="1" />
+            </svg></div>
+          <h3 data-i18n="ben5_t">Track your consumption</h3>
+          <p data-i18n="ben5_d">See how much water you use day by day and where you can save more.</p>
+        </div>
+        <div class="b-card earth">
+          <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="12" r="9" fill="#8B5E3C" opacity=".25" />
+              <path d="M12 6 v6 l4 2" stroke="#8B5E3C" stroke-width="2" fill="none" stroke-linecap="round" />
+            </svg></div>
+          <h3 data-i18n="ben6_t">Make watering easier</h3>
+          <p data-i18n="ben6_d">Set it once and let AquaSave keep your garden in great shape — or take manual control
+            anytime.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="s how-section" id="how">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="mono" data-i18n="how_eyebrow">How it works</div>
+        <h2 data-i18n="how_title">Three steps to smarter watering.</h2>
+        <p data-i18n="how_lead">Set up takes minutes. AquaSave guides you through every step.</p>
+      </div>
+      <div class="how-grid reveal-stagger">
+        <div class="step">
+          <div class="num">01</div>
+          <h3 data-i18n="step1_t">Connect the device</h3>
+          <p data-i18n="step1_d">Place the smart device near your garden, plug it in, and pair it with the app via
+            guided setup.</p>
+          <div class="vis">
+            <svg width="160" height="120" viewBox="0 0 160 120">
+              <rect x="48" y="30" width="64" height="70" rx="10" fill="#2F7D4F" />
+              <rect x="56" y="40" width="48" height="20" rx="4" fill="#0E1F1A" />
+              <circle cx="64" cy="76" r="4" fill="#9FCB3B" />
+              <circle cx="80" cy="76" r="4" fill="#3FA7D6" />
+              <circle cx="96" cy="76" r="4" fill="#F6F4EE" />
+              <path d="M80 30 V 18" stroke="#0E1F1A" stroke-width="2" stroke-linecap="round" />
+              <g stroke="#3FA7D6" stroke-width="2" fill="none" stroke-linecap="round" opacity=".8">
+                <path d="M68 14 Q 80 4 92 14" />
+                <path d="M58 6 Q 80 -10 102 6" />
+              </g>
+              <circle cx="80" cy="14" r="2.5" fill="#3FA7D6" />
+            </svg>
+          </div>
+        </div>
+        <div class="step">
+          <div class="num">02</div>
+          <h3 data-i18n="step2_t">Check your data</h3>
+          <p data-i18n="step2_d">See live soil moisture, soil temperature, and water flow — at a glance, in clear cards.
+          </p>
+          <div class="vis">
+            <svg width="180" height="120" viewBox="0 0 180 120">
+              <rect x="10" y="20" width="80" height="80" rx="10" fill="#fff" stroke="#dcd6c1" />
+              <rect x="20" y="32" width="36" height="6" rx="3" fill="#9FCB3B" />
+              <rect x="20" y="44" width="60" height="4" rx="2" fill="#E9DCC4" />
+              <rect x="20" y="56" width="50" height="4" rx="2" fill="#E9DCC4" />
+              <circle cx="50" cy="80" r="12" fill="none" stroke="#2F7D4F" stroke-width="3" />
+              <rect x="100" y="20" width="70" height="36" rx="10" fill="#3FA7D6" />
+              <rect x="100" y="64" width="70" height="36" rx="10" fill="#fff" stroke="#dcd6c1" />
+              <path d="M108 82 L 118 76 L 128 80 L 138 72 L 148 78 L 162 70" stroke="#2F7D4F" stroke-width="2"
+                fill="none" stroke-linecap="round" />
+            </svg>
+          </div>
+        </div>
+        <div class="step">
+          <div class="num">03</div>
+          <h3 data-i18n="step3_t">Automate or take control</h3>
+          <p data-i18n="step3_d">Let AquaSave water automatically based on soil and weather, or trigger irrigation
+            manually whenever you want.</p>
+          <div class="vis">
+            <svg width="170" height="120" viewBox="0 0 170 120">
+              <rect x="20" y="40" width="130" height="40" rx="20" fill="#2F7D4F" />
+              <circle cx="130" cy="60" r="14" fill="#fff" />
+              <text x="42" y="65" font-family="Inter" font-size="13" font-weight="600" fill="#fff">AUTO</text>
+              <g transform="translate(80,12)">
+                <path d="M0 8 C 4 0, 8 0, 12 8 C 12 14, 6 18, 0 14 C -6 18, -12 14, -12 8 C -8 0, -4 0, 0 8 Z"
+                  fill="#3FA7D6" />
+              </g>
+              <g transform="translate(80,98)">
+                <circle r="3" fill="#9FCB3B" />
+                <circle r="3" fill="#9FCB3B" cx="-12" />
+                <circle r="3" fill="#9FCB3B" cx="12" />
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="s" id="features">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="mono" data-i18n="feat_eyebrow">Features</div>
+        <h2 data-i18n="feat_title">Everything you need in one app.</h2>
+        <p data-i18n="feat_lead">Designed to be useful from the first day, with no technical fuss.</p>
+      </div>
+      <div class="features-grid reveal-stagger">
+        <div class="f-card">
+          <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path d="M12 4 C 16 10, 18 13, 18 16 C 18 19, 15 21, 12 21 C 9 21, 6 19, 6 16 C 6 13, 8 10, 12 4 Z"
+                fill="currentColor" />
+            </svg></div>
+          <h4 data-i18n="f1_t">Live soil monitoring</h4>
+          <p data-i18n="f1_d">Real-time moisture and temperature readings from connected sensors.</p>
+        </div>
+        <div class="f-card">
+          <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="2" fill="none" />
+              <path d="M12 8 v4 l3 2" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" />
+            </svg></div>
+          <h4 data-i18n="f2_t">Smart irrigation control</h4>
+          <p data-i18n="f2_d">Automatic watering based on soil conditions, or manual remote control.</p>
+        </div>
+        <div class="f-card">
+          <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path d="M5 14 a4 4 0 1 1 1.5 -7.7 a5 5 0 0 1 9.7 1.7 a3.5 3.5 0 0 1 0 6 H 5 Z" fill="currentColor" />
+            </svg></div>
+          <h4 data-i18n="f3_t">Weather-aware watering</h4>
+          <p data-i18n="f3_d">Forecast integration pauses irrigation when rain is coming.</p>
+        </div>
+        <div class="f-card">
+          <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path d="M12 3 L 21 19 H 3 Z" fill="currentColor" />
+              <rect x="11" y="9" width="2" height="6" fill="#fff" />
+              <rect x="11" y="16" width="2" height="2" fill="#fff" />
+            </svg></div>
+          <h4 data-i18n="f4_t">Critical humidity alerts</h4>
+          <p data-i18n="f4_d">Get notified when moisture levels need your attention.</p>
+        </div>
+        <div class="f-card">
+          <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <rect x="3" y="13" width="3" height="8" fill="currentColor" rx="1" />
+              <rect x="8" y="9" width="3" height="12" fill="currentColor" rx="1" />
+              <rect x="13" y="5" width="3" height="16" fill="currentColor" rx="1" />
+              <rect x="18" y="11" width="3" height="10" fill="currentColor" rx="1" />
+            </svg></div>
+          <h4 data-i18n="f5_t">Water usage history</h4>
+          <p data-i18n="f5_d">Daily, weekly, and monthly consumption — all in one place.</p>
+        </div>
+        <div class="f-card">
+          <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path d="M5 19 L 10 12 L 14 16 L 19 6" stroke="currentColor" stroke-width="2.4" fill="none"
+                stroke-linecap="round" stroke-linejoin="round" />
+            </svg></div>
+          <h4 data-i18n="f6_t">Savings reports</h4>
+          <p data-i18n="f6_d">See water-saving metrics and how your habits improve over time.</p>
+        </div>
+        <div class="f-card">
+          <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <rect x="3" y="5" width="14" height="10" rx="2" stroke="currentColor" stroke-width="2" fill="none" />
+              <rect x="14" y="9" width="7" height="11" rx="2" fill="currentColor" />
+            </svg></div>
+          <h4 data-i18n="f7_t">Web &amp; mobile access</h4>
+          <p data-i18n="f7_d">Use AquaSave from your phone, tablet, or computer — synced everywhere.</p>
+        </div>
+        <div class="f-card">
+          <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2" fill="none" />
+              <path d="M8 12 l3 3 l5 -6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg></div>
+          <h4 data-i18n="f8_t">Guided setup</h4>
+          <p data-i18n="f8_d">Step-by-step pairing and configuration — ready in minutes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="s about-section" id="about">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="mono" data-i18n="about_eyebrow">About us</div>
+        <h2 data-i18n="about_title">A team behind every drop.</h2>
+        <p data-i18n="about_lead">EcoDrop builds technology for smarter water use. AquaSave is our first product — a
+          connected device and app for smarter irrigation.</p>
+      </div>
+      <div class="about-grid reveal-stagger">
+        <div class="about-card eco">
+          <div class="about-anim" id="ecoAnim"></div>
+          <h3>
+            <img src="public/assets/images/EcoDropLogo.PNG" alt="EcoDrop logo" />
+            EcoDrop
+          </h3>
+          <p data-i18n="about_eco_p">EcoDrop is a startup focused on technology that supports smarter and more
+            responsible water use. We design connected products that turn everyday irrigation into something simple,
+            transparent, and sustainable.</p>
+          <div class="traits" hidden style="display:none">
+            <div class="trait"><span class="dt" style="background:var(--lime)"></span><span
+                data-i18n="about_eco_tr1">Sustainable</span></div>
+            <div class="trait"><span class="dt" style="background:var(--water)"></span><span
+                data-i18n="about_eco_tr2">Connected</span></div>
+            <div class="trait"><span class="dt" style="background:var(--earth)"></span><span
+                data-i18n="about_eco_tr3">Human-first</span></div>
+          </div>
+        </div>
+        <div class="about-card aqua">
+          <div class="about-anim" id="aquaAnim"></div>
+          <h3>
+            <img src="public/assets/images/AquaSaveLogo.PNG" alt="AquaSave logo" />
+            AquaSave
+          </h3>
+          <p data-i18n="about_aqua_p" data-traits-after="hidden">AquaSave is EcoDrop's smart irrigation product. It
+            pairs a small connected device with a web and mobile app so you can monitor irrigation data, receive
+            critical alerts, and control watering from wherever you are.</p>
+          <div class="traits">
+            <div class="trait"><span class="dt" style="background:var(--leaf)"></span><span
+                data-i18n="about_aqua_tr1">Smart device</span></div>
+            <div class="trait"><span class="dt" style="background:var(--water)"></span><span
+                data-i18n="about_aqua_tr2">Web &amp; mobile</span></div>
+            <div class="trait"><span class="dt" style="background:var(--lime)"></span><span
+                data-i18n="about_aqua_tr3">Easy to use</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="s sustain">
+    <svg class="leaf-bg" viewBox="0 0 1440 600" preserveAspectRatio="xMidYMid slice">
+      <g opacity=".25">
+        <path
+          d="M-50 500 C 200 400, 400 350, 600 380 C 800 410, 1000 350, 1200 320 C 1340 300, 1500 320, 1500 320 L 1500 700 L -50 700 Z"
+          fill="#9FCB3B" />
+        <path d="M-50 540 C 250 480, 500 460, 700 480 C 900 500, 1100 460, 1500 440 L 1500 700 L -50 700 Z"
+          fill="#2F7D4F" />
+      </g>
+    </svg>
+    <div class="rain" id="rain" aria-hidden="true"></div>
+    <span class="ripple r1"></span>
+    <span class="ripple r2"></span>
+    <span class="ripple r3"></span>
+    <svg class="drop-deco d1" viewBox="0 0 50 70">
+      <path d="M25 4 C 40 24, 46 38, 46 50 C 46 62, 36 68, 25 68 C 14 68, 4 62, 4 50 C 4 38, 10 24, 25 4 Z"
+        fill="#3FA7D6" opacity=".7" />
+    </svg>
+    <svg class="drop-deco d2" viewBox="0 0 50 70">
+      <path d="M25 4 C 40 24, 46 38, 46 50 C 46 62, 36 68, 25 68 C 14 68, 4 62, 4 50 C 4 38, 10 24, 25 4 Z"
+        fill="#1F6E96" opacity=".5" />
+    </svg>
+    <svg class="drop-deco d3" viewBox="0 0 50 70">
+      <path d="M25 4 C 40 24, 46 38, 46 50 C 46 62, 36 68, 25 68 C 14 68, 4 62, 4 50 C 4 38, 10 24, 25 4 Z"
+        fill="#9FCB3B" opacity=".7" />
+    </svg>
+    <div class="container">
+      <div class="reveal" style="text-align:center">
+        <div class="mono" data-i18n="sus_eyebrow">Sustainability</div>
+      </div>
+      <h2 class="reveal" data-delay="80"><span data-i18n="sus_h1">Every drop matters.</span><br /><span
+          data-i18n="sus_h2">AquaSave makes them count.</span></h2>
+      <p class="lead reveal" data-delay="160" data-i18n="sus_lead">By watering with real data instead of guesses, you
+        reduce waste and help your plants thrive — one cycle at a time.</p>
+    </div>
+  </section>
+
+
+  <section class="contact-section" id="contact">
+    <div class="container contact-grid">
+      <div class="contact-info reveal">
+        <div class="mono" data-i18n="contact_eyebrow">Contact</div>
+        <h2 data-i18n="contact_title">Let's build smarter irrigation together.</h2>
+        <p data-i18n="contact_lead">Have a question, a suggestion, or want to know more about AquaSave? Send us a
+          message, we read every one.</p>
+      </div>
+      <form class="contact-form reveal" id="contactForm" novalidate>
+        <div class="form-row row2">
+          <div>
+            <label data-i18n="form_name">Name</label>
+            <input type="text" name="name" required placeholder="Jane Doe" />
+          </div>
+          <div>
+            <label data-i18n="form_email">Email</label>
+            <input type="email" name="email" required placeholder="jane@example.com" />
+          </div>
+        </div>
+        <div class="form-row">
+          <label data-i18n="form_subject">Subject</label>
+          <input type="text" name="subject" data-i18n-placeholder="form_subject_ph" placeholder="How can we help?" />
+        </div>
+        <div class="form-row">
+          <label data-i18n="form_msg">Message</label>
+          <textarea name="message" required data-i18n-placeholder="form_msg_ph"
+            placeholder="Tell us a bit about your garden or your question…"></textarea>
+        </div>
+        <button type="submit" class="btn btn-leaf" data-i18n="form_send">Send message</button>
+        <div class="form-success" id="formSuccess">
+          <div class="check">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+              <path d="M5 12 l5 5 l9 -10" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+          </div>
+          <h3 data-i18n="form_thx_t">Thanks for reaching out!</h3>
+          <p data-i18n="form_thx_p">We'll get back to you within a couple of business days.</p>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <section class="final-cta" id="cta">
+    <div class="container">
+      <div class="wrap reveal">
+        <h2><span data-i18n="cta_h1">Start watering smarter</span><br /><span data-i18n="cta_h2">with AquaSave.</span>
+        </h2>
+        <p data-i18n="cta_lead">Set up the smart device, open the app, and let your garden tell you what it needs.</p>
+        <a href="#contact" class="btn btn-leaf" data-i18n="cta_get_final">Get started with AquaSave</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="foot-grid">
+        <div class="foot-brand">
+          <div class="foot-lockup">
+            <img src="public/assets/images/AquaSaveLogo.PNG" alt="AquaSave" />
+            <span class="name">AquaSave</span>
+          </div>
+          <p class="foot-slogan" data-i18n="foot_slogan">Smarter irrigation, one drop at a time.</p>
+          <div class="foot-by">
+            <span data-i18n="foot_by">A product by</span>
+            <img src="public/assets/images/EcoDropLogo.PNG" alt="EcoDrop" />
+          </div>
+          <div class="socials" aria-label="Social media">
+            <a href="#" aria-label="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M14 21 v-7 h2.5 l.5 -3 H 14 V 9.2 c 0 -.9 .3 -1.5 1.5 -1.5 H 17 V 5 c -.3 0 -1.4 -.1 -2.5 -.1 c -2.5 0 -4.5 1.5 -4.5 4.3 V 11 H 7 v 3 h 3 v 7 z" />
+              </svg></a>
+            <a href="#" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="2" />
+                <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2" />
+                <circle cx="17.5" cy="6.5" r="1" fill="currentColor" />
+              </svg></a>
+            <a href="#" aria-label="X"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M18 3 h3 l-7.5 8.6 L 22 21 h-7 l-5 -6.5 L 4 21 H 1 l 8 -9.2 L 1 3 h 7 l 4.5 6 z M 16.7 19 h 1.7 L 7.4 5 H 5.6 z" />
+              </svg></a>
+            <a href="#" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <rect x="3" y="9" width="3.5" height="11" />
+                <circle cx="4.75" cy="5" r="2" />
+                <path
+                  d="M9 9 h3.3 v1.6 c .8 -1.2 2.2 -1.9 3.7 -1.9 c 2.7 0 4 1.7 4 5 V 20 h-3.5 v-5.5 c 0 -1.6 -.6 -2.5 -1.9 -2.5 c -1.4 0 -2.1 1 -2.1 2.5 V 20 H 9 z" />
+              </svg></a>
+            <a href="#" aria-label="YouTube"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M22 8 c -.2 -1.7 -.9 -2.4 -2.5 -2.6 C 17.3 5 12 5 12 5 s -5.3 0 -7.5 .4 C 2.9 5.6 2.2 6.3 2 8 C 1.6 10.2 1.6 12 1.6 12 s 0 1.8 .4 4 c .2 1.7 .9 2.4 2.5 2.6 C 6.7 19 12 19 12 19 s 5.3 0 7.5 -.4 c 1.6 -.2 2.3 -.9 2.5 -2.6 c .4 -2.2 .4 -4 .4 -4 s 0 -1.8 -.4 -4 z M 10 15 V 9 l 5 3 z" />
+              </svg></a>
+          </div>
+        </div>
+        <div class="foot-col">
+          <h5 data-i18n="foot_explore">Explore</h5>
+          <ul>
+            <li><a href="#benefits" data-i18n="nav_benefits">Benefits</a></li>
+            <li><a href="#how" data-i18n="nav_how">How it works</a></li>
+            <li><a href="#features" data-i18n="nav_features">Features</a></li>
+            <li><a href="#about" data-i18n="nav_about">About</a></li>
+            <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="foot-col">
+          <h5 data-i18n="foot_help">Help</h5>
+          <ul>
+            <li><a href="help.html" data-i18n="foot_help_center">Help Center</a></li>
+            <li><a href="faq.html" data-i18n="foot_faq">FAQ</a></li>
+            <li><a href="#contact" data-i18n="foot_contact_us">Contact</a></li>
+          </ul>
+        </div>
+        <div class="foot-col">
+          <h5 data-i18n="foot_legal">Legal</h5>
+          <ul>
+            <li><button data-modal="terms" data-i18n="foot_terms">Terms &amp; Conditions</button></li>
+            <li><button data-modal="privacy" data-i18n="foot_privacy">Privacy Policy</button></li>
+          </ul>
+        </div>
+      </div>
+      <div class="foot-bottom">
+        <span class="foot-copy">© 2026 EcoDrop · AquaSave</span>
+        <div class="foot-bottom-right">
+          <div class="lang foot-lang" role="group" aria-label="Footer language">
+            <span class="pill" aria-hidden="true"></span>
+            <button data-lang="en" class="is-active">
+              <span class="flag" aria-hidden="true">
+                <svg viewBox="0 0 60 30">
+                  <clipPath id="ft">
+                    <path d="M0 0 v30 h60 V0 z" />
+                  </clipPath>
+                  <clipPath id="fs">
+                    <path d="M30 15 h30 v15 z M0 15 v15 h30 z M0 0 v15 h30 z M30 0 h30 v15 z" />
+                  </clipPath>
+                  <g clip-path="url(#ft)">
+                    <path d="M0 0 v30 h60 V0 z" fill="#012169" />
+                    <path d="M0 0 L60 30 M60 0 L0 30" stroke="#fff" stroke-width="6" />
+                    <path d="M0 0 L60 30 M60 0 L0 30" clip-path="url(#fs)" stroke="#C8102E" stroke-width="4" />
+                    <path d="M30 0 v30 M0 15 h60" stroke="#fff" stroke-width="10" />
+                    <path d="M30 0 v30 M0 15 h60" stroke="#C8102E" stroke-width="6" />
+                  </g>
+                </svg>
+              </span>
+              EN
+            </button>
+            <button data-lang="es">
+              <span class="flag" aria-hidden="true">
+                <svg viewBox="0 0 60 40">
+                  <rect width="60" height="40" fill="#AA151B" />
+                  <rect y="10" width="60" height="20" fill="#F1BF00" />
+                </svg>
+              </span>
+              ES
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="modal-backdrop" id="modal-terms" data-modal-id="terms">
+    <div class="modal" role="dialog" aria-modal="true">
+      <div class="modal-head">
+        <h3 data-i18n="terms_title">Terms &amp; Conditions</h3>
+        <button class="close" aria-label="Close">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <path d="M5 5 l14 14 M19 5 l-14 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </button>
+      </div>
+      <h4 data-i18n="terms_h1">Use of the AquaSave website and app</h4>
+      <p data-i18n="terms_p1">By using the AquaSave website or app, you agree to use the service in a responsible way
+        and only for purposes related to monitoring and controlling your own irrigation setup.</p>
+      <h4 data-i18n="terms_h2">Informational purpose</h4>
+      <p data-i18n="terms_p2">The information shown in AquaSave is intended to support your irrigation decisions.
+        EcoDrop is not responsible for plant outcomes derived from those decisions.</p>
+      <h4 data-i18n="terms_h3">Product availability</h4>
+      <p data-i18n="terms_p3">AquaSave is in active development. EcoDrop does not guarantee final availability dates or
+        specific feature sets while the product evolves.</p>
+      <h4 data-i18n="terms_h4">Contact</h4>
+      <p data-i18n="terms_p4">Questions about these terms? Reach out through the contact form on this page.</p>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="modal-privacy" data-modal-id="privacy">
+    <div class="modal" role="dialog" aria-modal="true">
+      <div class="modal-head">
+        <h3 data-i18n="priv_title">Privacy Policy</h3>
+        <button class="close" aria-label="Close">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <path d="M5 5 l14 14 M19 5 l-14 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </button>
+      </div>
+      <h4 data-i18n="priv_h1">What we collect</h4>
+      <p data-i18n="priv_p1">We collect the basic information you submit through the contact form: name, email, and
+        message.</p>
+      <h4 data-i18n="priv_h2">How we use it</h4>
+      <p data-i18n="priv_p2">We use that information only to reply to your inquiry and follow up if needed. Nothing
+        more.</p>
+      <h4 data-i18n="priv_h3">No sale of personal data</h4>
+      <p data-i18n="priv_p3">EcoDrop does not sell, rent, or share your personal data with third parties for marketing.
+      </p>
+      <h4 data-i18n="priv_h4">Your privacy</h4>
+      <p data-i18n="priv_p4">We're committed to handling your information carefully and only for the purpose you shared
+        it for.</p>
+    </div>
+  </div>
+
+  <script src="public/assets/scripts/script.js"></script>
+</body>
+
+</html>
