@@ -317,9 +317,9 @@
 (() => {
   const dict = {
     en: {
-      nav_benefits: "Benefits", nav_how: "How it works", nav_features: "Features", nav_about: "About", nav_help: "Help", nav_faq: "FAQ", nav_contact: "Contact", nav_cta: "Get started",
+      nav_benefits: "Benefits", nav_how: "How it works", nav_features: "Features", nav_about: "About", nav_help: "Help", nav_faq: "FAQ", nav_contact: "Contact us", nav_cta: "Get started",
       hero_h1_a: "Smart irrigation,", hero_h1_b: "less water waste.",
-      hero_lead: "Monitor soil conditions, control watering from anywhere, and water only when your plants really need it — all from one app.",
+      hero_lead: "Monitor soil conditions, control watering from anywhere, and water only when your plants really need it, all from one app.",
       cta_get: "Get started", cta_how: "See how it works",
       tok_moist: "Soil moisture", tok_flow: "Flow", tok_temp: "Soil temp",
       ben_eyebrow: "Why AquaSave", ben_title: "Watering that works smarter for you.", ben_lead: "Stop guessing. Get the data and the controls you need to keep plants healthy and water bills low.",
@@ -328,28 +328,28 @@
       ben3_t: "Control from anywhere", ben3_d: "Open valves, pause watering, or run a quick cycle from phone or browser.",
       ben4_t: "Avoid watering before rain", ben4_d: "Forecast-aware schedules pause irrigation when nature is about to do the job.",
       ben5_t: "Track your consumption", ben5_d: "See how much water you use day by day and where you can save more.",
-      ben6_t: "Make watering easier", ben6_d: "Set it once and let AquaSave keep your garden in great shape — or take manual control anytime.",
+      ben6_t: "Make watering easier", ben6_d: "Set it once and let AquaSave keep your garden in great shape, or take manual control anytime.",
       how_eyebrow: "How it works", how_title: "Three steps to smarter watering.", how_lead: "Set up takes minutes. AquaSave guides you through every step.",
       step1_t: "Connect the device", step1_d: "Place the smart device near your garden, plug it in, and pair it with the app via guided setup.",
-      step2_t: "Check your data", step2_d: "See live soil moisture, soil temperature, and water flow — at a glance, in clear cards.",
+      step2_t: "Check your data", step2_d: "See live soil moisture, soil temperature, and water flow, at a glance, in clear cards.",
       step3_t: "Automate or take control", step3_d: "Let AquaSave water automatically based on soil and weather, or trigger irrigation manually whenever you want.",
       feat_eyebrow: "Features", feat_title: "Everything you need in one app.", feat_lead: "Designed to be useful from the first day, with no technical fuss.",
       f1_t: "Live soil monitoring", f1_d: "Real-time moisture and temperature readings from connected sensors.",
       f2_t: "Smart irrigation control", f2_d: "Automatic watering based on soil conditions, or manual remote control.",
       f3_t: "Weather-aware watering", f3_d: "Forecast integration pauses irrigation when rain is coming.",
       f4_t: "Critical humidity alerts", f4_d: "Get notified when moisture levels need your attention.",
-      f5_t: "Water usage history", f5_d: "Daily, weekly, and monthly consumption — all in one place.",
-      f6_t: "Savings reports", f6_d: "See water-saving metrics and how your habits improve over time.",
-      f7_t: "Web & mobile access", f7_d: "Use AquaSave from your phone, tablet, or computer — synced everywhere.",
-      f8_t: "Guided setup", f8_d: "Step-by-step pairing and configuration — ready in minutes.",
-      about_eyebrow: "About us", about_title: "A team behind every drop.", about_lead: "EcoDrop builds technology for smarter water use. AquaSave is our first product — a connected device and app for smarter irrigation.",
+      f5_t: "Water usage history", f5_d: "Daily, weekly, and monthly consumption, all in one place.",
+      f6_t: "Activity summaries", f6_d: "Review general irrigation activity and recent usage patterns in a simple view.",
+      f7_t: "Web & mobile access", f7_d: "Use AquaSave from your phone, tablet, or computer, synced everywhere.",
+      f8_t: "Guided setup", f8_d: "Step-by-step pairing and configuration, ready in minutes.",
+      about_eyebrow: "About us", about_title: "A team behind every drop.", about_lead: "EcoDrop builds technology for smarter water use. AquaSave is our first product, a connected device and app for smarter irrigation.",
       about_tag_brand: "The brand", about_tag_prod: "The product",
       about_eco_p: "EcoDrop is a startup focused on technology that supports smarter and more responsible water use. We design connected products that turn everyday irrigation into something simple, transparent, and sustainable.",
       about_eco_tr1: "Sustainable", about_eco_tr2: "Connected", about_eco_tr3: "Human-first",
       about_aqua_p: "AquaSave is EcoDrop's smart irrigation product. It pairs a small connected device with a web and mobile app so you can monitor irrigation data, receive critical alerts, and control watering from wherever you are.",
       about_aqua_tr1: "Smart device", about_aqua_tr2: "Web & mobile", about_aqua_tr3: "Easy to use",
       sus_eyebrow: "Sustainability", sus_h1: "Every drop matters.", sus_h2: "AquaSave makes them count.",
-      sus_lead: "By watering with real data instead of guesses, you reduce waste and help your plants thrive — one cycle at a time.",
+      sus_lead: "By watering with real data instead of guesses, you reduce waste and help your plants thrive, one cycle at a time.",
       help_eyebrow: "Help center", help_title: "What do you need help with?", help_lead: "Choose a topic and we'll take you straight to the right answers.",
       help_h1_t: "Billing", help_h1_d: "Invoices, charges, and payment details.",
       help_h2_t: "Account", help_h2_d: "Login, password, and profile settings.",
@@ -407,9 +407,9 @@
       priv_h4: "Your privacy", priv_p4: "We're committed to handling your information carefully and only for the purpose you shared it for."
     },
     es: {
-      nav_benefits: "Beneficios", nav_how: "Cómo funciona", nav_features: "Funciones", nav_about: "Nosotros", nav_help: "Ayuda", nav_faq: "FAQ", nav_contact: "Contacto", nav_cta: "Empezar",
+      nav_benefits: "Beneficios", nav_how: "Cómo funciona", nav_features: "Funciones", nav_about: "Nosotros", nav_help: "Ayuda", nav_faq: "FAQ", nav_contact: "Contáctanos", nav_cta: "Empezar",
       hero_h1_a: "Riego inteligente,", hero_h1_b: "menos agua desperdiciada.",
-      hero_lead: "Monitorea las condiciones del suelo, controla el riego desde donde estés y riega solo cuando tus plantas lo necesitan — todo desde una app.",
+      hero_lead: "Monitorea las condiciones del suelo, controla el riego desde donde estés y riega solo cuando tus plantas lo necesitan, todo desde una app.",
       cta_get: "Empezar", cta_how: "Ver cómo funciona",
       tok_moist: "Humedad", tok_flow: "Caudal", tok_temp: "Temperatura",
       ben_eyebrow: "Por qué AquaSave", ben_title: "Un riego que trabaja por ti.", ben_lead: "Deja de adivinar. Obtén los datos y los controles que necesitas para mantener tus plantas sanas y la cuenta de agua baja.",
@@ -418,7 +418,7 @@
       ben3_t: "Controla desde cualquier lugar", ben3_d: "Abre válvulas, pausa el riego o lanza un ciclo rápido desde el móvil o el navegador.",
       ben4_t: "Evita regar antes de llover", ben4_d: "Programaciones que conocen el pronóstico y pausan el riego cuando va a llover.",
       ben5_t: "Sigue tu consumo", ben5_d: "Ve cuánta agua usas día a día y dónde puedes ahorrar más.",
-      ben6_t: "Hace el riego más fácil", ben6_d: "Configúralo una vez y deja que AquaSave cuide tu huerto — o toma el control manual cuando quieras.",
+      ben6_t: "Hace el riego más fácil", ben6_d: "Configúralo una vez y deja que AquaSave cuide tu huerto, o toma el control manual cuando quieras.",
       how_eyebrow: "Cómo funciona", how_title: "Tres pasos para regar mejor.", how_lead: "Instalarlo lleva minutos. AquaSave te guía paso a paso.",
       step1_t: "Conecta el dispositivo", step1_d: "Coloca el dispositivo inteligente cerca de tu huerto, conéctalo y vincúlalo con la app guiada.",
       step2_t: "Revisa tus datos", step2_d: "Ve la humedad, la temperatura del suelo y el caudal de agua de un vistazo, en tarjetas claras.",
@@ -428,18 +428,18 @@
       f2_t: "Control inteligente del riego", f2_d: "Riego automático según condiciones del suelo o control manual remoto.",
       f3_t: "Riego con clima", f3_d: "La integración con el pronóstico pausa el riego cuando va a llover.",
       f4_t: "Alertas de humedad crítica", f4_d: "Recibe avisos cuando la humedad necesita tu atención.",
-      f5_t: "Historial de consumo", f5_d: "Consumo diario, semanal y mensual — todo en un solo lugar.",
-      f6_t: "Reportes de ahorro", f6_d: "Métricas de ahorro de agua y cómo mejoran tus hábitos con el tiempo.",
-      f7_t: "Acceso web y móvil", f7_d: "Usa AquaSave desde tu móvil, tableta o computadora — sincronizado en todo.",
-      f8_t: "Configuración guiada", f8_d: "Vinculación y configuración paso a paso — listo en minutos.",
-      about_eyebrow: "Nosotros", about_title: "Un equipo detrás de cada gota.", about_lead: "EcoDrop crea tecnología para un uso más inteligente del agua. AquaSave es nuestro primer producto — un dispositivo conectado y una app para regar mejor.",
+      f5_t: "Historial de consumo", f5_d: "Consumo diario, semanal y mensual, todo en un solo lugar.",
+      f6_t: "Resumen de actividad", f6_d: "Consulta la actividad general del riego y los patrones recientes de uso en una vista simple.",
+      f7_t: "Acceso web y móvil", f7_d: "Usa AquaSave desde tu móvil, tableta o computadora, sincronizado en todo.",
+      f8_t: "Configuración guiada", f8_d: "Vinculación y configuración paso a paso, listo en minutos.",
+      about_eyebrow: "Nosotros", about_title: "Un equipo detrás de cada gota.", about_lead: "EcoDrop crea tecnología para un uso más inteligente del agua. AquaSave es nuestro primer producto, un dispositivo conectado y una app para regar mejor.",
       about_tag_brand: "La marca", about_tag_prod: "El producto",
       about_eco_p: "EcoDrop es una startup enfocada en tecnología que apoya un uso más inteligente y responsable del agua. Diseñamos productos conectados que vuelven el riego algo simple, transparente y sostenible.",
       about_eco_tr1: "Sostenible", about_eco_tr2: "Conectado", about_eco_tr3: "Centrado en personas",
       about_aqua_p: "AquaSave es el producto de riego inteligente de EcoDrop. Combina un pequeño dispositivo conectado con una app web y móvil para que monitorees datos del riego, recibas alertas críticas y controles el agua desde donde estés.",
       about_aqua_tr1: "Dispositivo inteligente", about_aqua_tr2: "Web y móvil", about_aqua_tr3: "Fácil de usar",
       sus_eyebrow: "Sostenibilidad", sus_h1: "Cada gota cuenta.", sus_h2: "AquaSave la hace contar.",
-      sus_lead: "Al regar con datos reales en lugar de adivinar, reduces el desperdicio y ayudas a que tus plantas prosperen — ciclo a ciclo.",
+      sus_lead: "Al regar con datos reales en lugar de adivinar, reduces el desperdicio y ayudas a que tus plantas prosperen, ciclo a ciclo.",
       help_eyebrow: "Centro de ayuda", help_title: "¿Qué ayuda necesitas?", help_lead: "Elige un tema y te llevamos directo a las respuestas correctas.",
       help_h1_t: "Facturación", help_h1_d: "Cobros, pagos y detalles de factura.",
       help_h2_t: "Cuenta", help_h2_d: "Inicio de sesión, contraseña y perfil.",
@@ -569,6 +569,16 @@
       l.style.setProperty('--op', (0.35 + Math.random() * 0.35).toFixed(2));
       l.style.animationDuration = (7.5 + Math.random() * 5.5) + 's';
       l.style.animationDelay = (Math.random() * -12) + 's';
+      eco.appendChild(l);
+    }
+    for (let i = 0; i < 8; i++) {
+      const l = document.createElement('span');
+      l.className = 'a-leaf corner ' + sizes[i % 3];
+      l.style.setProperty('--cx', (18 + Math.random() * 90) + 'px');
+      l.style.setProperty('--cy', (16 + Math.random() * 58) + 'px');
+      l.style.setProperty('--rot', (-54 + Math.random() * 52) + 'deg');
+      l.style.animationDuration = (4.8 + Math.random() * 3.8) + 's';
+      l.style.animationDelay = (Math.random() * -6) + 's';
       eco.appendChild(l);
     }
   }
