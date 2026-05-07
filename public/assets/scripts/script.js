@@ -571,16 +571,26 @@
       l.style.animationDelay = (Math.random() * -12) + 's';
       eco.appendChild(l);
     }
-    for (let i = 0; i < 8; i++) {
+    const cornerLeaves = [
+      ['t', -8, 2, -128, 6.2, -1.4],
+      ['', 22, 4, -104, 5.8, -3.1],
+      ['s', 54, 18, -145, 6.8, -2.2],
+      ['t', 6, 34, -82, 7.1, -4.5],
+      ['', 38, 44, -118, 6.4, -1.8],
+      ['s', 82, 30, -96, 5.6, -3.7],
+      ['', 70, -2, -134, 6.9, -5.2],
+      ['s', 16, 70, -74, 5.9, -2.9]
+    ];
+    cornerLeaves.forEach(([size, x, y, rot, duration, delay]) => {
       const l = document.createElement('span');
-      l.className = 'a-leaf corner ' + sizes[i % 3];
-      l.style.setProperty('--cx', (18 + Math.random() * 90) + 'px');
-      l.style.setProperty('--cy', (16 + Math.random() * 58) + 'px');
-      l.style.setProperty('--rot', (-54 + Math.random() * 52) + 'deg');
-      l.style.animationDuration = (4.8 + Math.random() * 3.8) + 's';
-      l.style.animationDelay = (Math.random() * -6) + 's';
+      l.className = 'a-leaf corner ' + size;
+      l.style.setProperty('--cx', x + 'px');
+      l.style.setProperty('--cy', y + 'px');
+      l.style.setProperty('--rot', rot + 'deg');
+      l.style.animationDuration = duration + 's';
+      l.style.animationDelay = delay + 's';
       eco.appendChild(l);
-    }
+    });
   }
   const aqua = document.getElementById('aquaAnim');
   if (aqua) {
