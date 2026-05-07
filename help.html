@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>AquaSave - Help</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="icon" type="image/png" href="public/assets/images/AquaSaveLogo.PNG" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="public/assets/styles/style.css" />
+</head>
+
+<body>
+
+  <nav class="top">
+    <div class="container inner">
+      <a href="index.html" class="brand" aria-label="AquaSave home">
+        <span class="lockup">
+          <img class="logo" src="public/assets/images/AquaSaveLogo.PNG" alt="AquaSave" />
+          <span class="name">
+            <span>AquaSave</span>
+            <span class="by">by EcoDrop</span>
+          </span>
+        </span>
+      </a>
+      <ul>
+        <li><a href="index.html#benefits" data-i18n="nav_benefits">Benefits</a></li>
+        <li><a href="index.html#how" data-i18n="nav_how">How it works</a></li>
+        <li><a href="index.html#features" data-i18n="nav_features">Features</a></li>
+        <li><a href="index.html#about" data-i18n="nav_about">About</a></li>
+        <li><a href="help.html" data-i18n="nav_help">Help</a></li>
+        <li><a href="faq.html" data-i18n="nav_faq">FAQ</a></li>
+      </ul>
+      <div class="nav-actions">
+        <div class="lang" id="langToggle" role="group" aria-label="Language">
+          <span class="pill" aria-hidden="true"></span>
+          <button data-lang="en" class="is-active">
+            <span class="flag" aria-hidden="true">
+              <svg viewBox="0 0 60 30">
+                <clipPath id="t">
+                  <path d="M0 0 v30 h60 V0 z" />
+                </clipPath>
+                <clipPath id="s">
+                  <path d="M30 15 h30 v15 z M0 15 v15 h30 z M0 0 v15 h30 z M30 0 h30 v15 z" />
+                </clipPath>
+                <g clip-path="url(#t)">
+                  <path d="M0 0 v30 h60 V0 z" fill="#012169" />
+                  <path d="M0 0 L60 30 M60 0 L0 30" stroke="#fff" stroke-width="6" />
+                  <path d="M0 0 L60 30 M60 0 L0 30" clip-path="url(#s)" stroke="#C8102E" stroke-width="4" />
+                  <path d="M30 0 v30 M0 15 h60" stroke="#fff" stroke-width="10" />
+                  <path d="M30 0 v30 M0 15 h60" stroke="#C8102E" stroke-width="6" />
+                </g>
+              </svg>
+            </span>
+            EN
+          </button>
+          <button data-lang="es">
+            <span class="flag" aria-hidden="true">
+              <svg viewBox="0 0 60 40">
+                <rect width="60" height="40" fill="#AA151B" />
+                <rect y="10" width="60" height="20" fill="#F1BF00" />
+              </svg>
+            </span>
+            ES
+          </button>
+        </div>
+        <a href="index.html#cta" class="btn btn-primary" data-i18n="nav_cta">Get started</a>
+      </div>
+    </div>
+  </nav>
+
+
+  <section class="s help-section" id="help">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="mono" data-i18n="help_eyebrow">Help center</div>
+        <h2 data-i18n="help_title">What do you need help with?</h2>
+        <p data-i18n="help_lead">Choose a topic and we'll take you straight to the right answers.</p>
+      </div>
+      <div class="help-grid reveal-stagger">
+        <button class="help-card" data-help="billing">
+          <div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <rect x="4" y="6" width="16" height="12" rx="2" stroke="currentColor" stroke-width="2" />
+              <path d="M4 10 h16" stroke="currentColor" stroke-width="2" />
+            </svg></div>
+          <h4 data-i18n="help_h1_t">Billing</h4>
+          <p data-i18n="help_h1_d">Invoices, charges, and payment details.</p>
+        </button>
+        <button class="help-card" data-help="account">
+          <div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="9" r="4" stroke="currentColor" stroke-width="2" />
+              <path d="M4 21 a8 8 0 0 1 16 0" stroke="currentColor" stroke-width="2" fill="none" />
+            </svg></div>
+          <h4 data-i18n="help_h2_t">Account</h4>
+          <p data-i18n="help_h2_d">Login, password, and profile settings.</p>
+        </button>
+        <button class="help-card" data-help="irrigation">
+          <div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <path d="M12 4 C 16 10, 18 13, 18 16 C 18 19, 15 21, 12 21 C 9 21, 6 19, 6 16 C 6 13, 8 10, 12 4 Z"
+                fill="currentColor" />
+            </svg></div>
+          <h4 data-i18n="help_h3_t">Smart irrigation</h4>
+          <p data-i18n="help_h3_d">Automation, schedules, and watering logic.</p>
+        </button>
+        <button class="help-card" data-help="devices">
+          <div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <rect x="6" y="3" width="12" height="18" rx="3" stroke="currentColor" stroke-width="2" fill="none" />
+              <circle cx="12" cy="17" r="1.5" fill="currentColor" />
+            </svg></div>
+          <h4 data-i18n="help_h4_t">Devices</h4>
+          <p data-i18n="help_h4_d">Pairing, compatibility, and setup steps.</p>
+        </button>
+        <button class="help-card" data-help="plans">
+          <div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <path d="M5 19 h14" stroke="currentColor" stroke-width="2" />
+              <path d="M7 17 V 8 h10 v9" stroke="currentColor" stroke-width="2" fill="none" />
+              <path d="M9 5 h6" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            </svg></div>
+          <h4 data-i18n="help_h5_t">Plans</h4>
+          <p data-i18n="help_h5_d">Features, upgrades, and plan limits.</p>
+        </button>
+        <button class="help-card" data-help="support">
+          <div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <path d="M12 3 a8 8 0 0 0 -8 8 v3 a2 2 0 0 0 2 2 h2 v-5 H 4.2" stroke="currentColor" stroke-width="2"
+                fill="none" />
+              <path d="M12 3 a8 8 0 0 1 8 8 v3 a2 2 0 0 1 -2 2 h-2 v-5 h3.8" stroke="currentColor" stroke-width="2"
+                fill="none" />
+              <path d="M12 17 v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            </svg></div>
+          <h4 data-i18n="help_h6_t">Technical support</h4>
+          <p data-i18n="help_h6_d">Troubleshooting and connection issues.</p>
+        </button>
+        <button class="help-card" data-help="contact">
+          <div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <path d="M4 6 h16 v12 H 4 Z" stroke="currentColor" stroke-width="2" fill="none" />
+              <path d="M5 7 l7 6 l7 -6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg></div>
+          <h4 data-i18n="help_h7_t">Contact</h4>
+          <p data-i18n="help_h7_d">Talk to our team when you need a hand.</p>
+        </button>
+      </div>
+      <div class="still-help reveal">
+        <h3 data-i18n="still_t">Still need help?</h3>
+        <p data-i18n="still_p">Couldn't find what you were looking for? Contact us and we'll help you.</p>
+        <a href="index.html#contact" class="btn" data-i18n="still_btn">Contact us</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="foot-grid">
+        <div class="foot-brand">
+          <div class="foot-lockup">
+            <img src="public/assets/images/AquaSaveLogo.PNG" alt="AquaSave" />
+            <span class="name">AquaSave</span>
+          </div>
+          <p class="foot-slogan" data-i18n="foot_slogan">Smarter irrigation, one drop at a time.</p>
+          <div class="foot-by">
+            <span data-i18n="foot_by">A product by</span>
+            <img src="public/assets/images/EcoDropLogo.PNG" alt="EcoDrop" />
+          </div>
+          <div class="socials" aria-label="Social media">
+            <a href="#" aria-label="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M14 21 v-7 h2.5 l.5 -3 H 14 V 9.2 c 0 -.9 .3 -1.5 1.5 -1.5 H 17 V 5 c -.3 0 -1.4 -.1 -2.5 -.1 c -2.5 0 -4.5 1.5 -4.5 4.3 V 11 H 7 v 3 h 3 v 7 z" />
+              </svg></a>
+            <a href="#" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="2" />
+                <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2" />
+                <circle cx="17.5" cy="6.5" r="1" fill="currentColor" />
+              </svg></a>
+            <a href="#" aria-label="X"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M18 3 h3 l-7.5 8.6 L 22 21 h-7 l-5 -6.5 L 4 21 H 1 l 8 -9.2 L 1 3 h 7 l 4.5 6 z M 16.7 19 h 1.7 L 7.4 5 H 5.6 z" />
+              </svg></a>
+            <a href="#" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <rect x="3" y="9" width="3.5" height="11" />
+                <circle cx="4.75" cy="5" r="2" />
+                <path
+                  d="M9 9 h3.3 v1.6 c .8 -1.2 2.2 -1.9 3.7 -1.9 c 2.7 0 4 1.7 4 5 V 20 h-3.5 v-5.5 c 0 -1.6 -.6 -2.5 -1.9 -2.5 c -1.4 0 -2.1 1 -2.1 2.5 V 20 H 9 z" />
+              </svg></a>
+            <a href="#" aria-label="YouTube"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M22 8 c -.2 -1.7 -.9 -2.4 -2.5 -2.6 C 17.3 5 12 5 12 5 s -5.3 0 -7.5 .4 C 2.9 5.6 2.2 6.3 2 8 C 1.6 10.2 1.6 12 1.6 12 s 0 1.8 .4 4 c .2 1.7 .9 2.4 2.5 2.6 C 6.7 19 12 19 12 19 s 5.3 0 7.5 -.4 c 1.6 -.2 2.3 -.9 2.5 -2.6 c .4 -2.2 .4 -4 .4 -4 s 0 -1.8 -.4 -4 z M 10 15 V 9 l 5 3 z" />
+              </svg></a>
+          </div>
+        </div>
+        <div class="foot-col">
+          <h5 data-i18n="foot_explore">Explore</h5>
+          <ul>
+            <li><a href="index.html#benefits" data-i18n="nav_benefits">Benefits</a></li>
+            <li><a href="index.html#how" data-i18n="nav_how">How it works</a></li>
+            <li><a href="index.html#features" data-i18n="nav_features">Features</a></li>
+            <li><a href="index.html#about" data-i18n="nav_about">About</a></li>
+            <li><a href="index.html#contact" data-i18n="nav_contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="foot-col">
+          <h5 data-i18n="foot_help">Help</h5>
+          <ul>
+            <li><a href="help.html" data-i18n="foot_help_center">Help Center</a></li>
+            <li><a href="faq.html" data-i18n="foot_faq">FAQ</a></li>
+            <li><a href="index.html#contact" data-i18n="foot_contact_us">Contact</a></li>
+          </ul>
+        </div>
+        <div class="foot-col">
+          <h5 data-i18n="foot_legal">Legal</h5>
+          <ul>
+            <li><button data-modal="terms" data-i18n="foot_terms">Terms &amp; Conditions</button></li>
+            <li><button data-modal="privacy" data-i18n="foot_privacy">Privacy Policy</button></li>
+          </ul>
+        </div>
+      </div>
+      <div class="foot-bottom">
+        <span class="foot-copy">© 2026 EcoDrop · AquaSave</span>
+        <div class="foot-bottom-right">
+          <div class="lang foot-lang" role="group" aria-label="Footer language">
+            <span class="pill" aria-hidden="true"></span>
+            <button data-lang="en" class="is-active">
+              <span class="flag" aria-hidden="true">
+                <svg viewBox="0 0 60 30">
+                  <clipPath id="ft">
+                    <path d="M0 0 v30 h60 V0 z" />
+                  </clipPath>
+                  <clipPath id="fs">
+                    <path d="M30 15 h30 v15 z M0 15 v15 h30 z M0 0 v15 h30 z M30 0 h30 v15 z" />
+                  </clipPath>
+                  <g clip-path="url(#ft)">
+                    <path d="M0 0 v30 h60 V0 z" fill="#012169" />
+                    <path d="M0 0 L60 30 M60 0 L0 30" stroke="#fff" stroke-width="6" />
+                    <path d="M0 0 L60 30 M60 0 L0 30" clip-path="url(#fs)" stroke="#C8102E" stroke-width="4" />
+                    <path d="M30 0 v30 M0 15 h60" stroke="#fff" stroke-width="10" />
+                    <path d="M30 0 v30 M0 15 h60" stroke="#C8102E" stroke-width="6" />
+                  </g>
+                </svg>
+              </span>
+              EN
+            </button>
+            <button data-lang="es">
+              <span class="flag" aria-hidden="true">
+                <svg viewBox="0 0 60 40">
+                  <rect width="60" height="40" fill="#AA151B" />
+                  <rect y="10" width="60" height="20" fill="#F1BF00" />
+                </svg>
+              </span>
+              ES
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="modal-backdrop" id="modal-terms" data-modal-id="terms">
+    <div class="modal" role="dialog" aria-modal="true">
+      <div class="modal-head">
+        <h3 data-i18n="terms_title">Terms &amp; Conditions</h3>
+        <button class="close" aria-label="Close">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <path d="M5 5 l14 14 M19 5 l-14 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </button>
+      </div>
+      <h4 data-i18n="terms_h1">Use of the AquaSave website and app</h4>
+      <p data-i18n="terms_p1">By using the AquaSave website or app, you agree to use the service in a responsible way
+        and only for purposes related to monitoring and controlling your own irrigation setup.</p>
+      <h4 data-i18n="terms_h2">Informational purpose</h4>
+      <p data-i18n="terms_p2">The information shown in AquaSave is intended to support your irrigation decisions.
+        EcoDrop is not responsible for plant outcomes derived from those decisions.</p>
+      <h4 data-i18n="terms_h3">Product availability</h4>
+      <p data-i18n="terms_p3">AquaSave is in active development. EcoDrop does not guarantee final availability dates or
+        specific feature sets while the product evolves.</p>
+      <h4 data-i18n="terms_h4">Contact</h4>
+      <p data-i18n="terms_p4">Questions about these terms? Reach out through the contact form on this page.</p>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="modal-privacy" data-modal-id="privacy">
+    <div class="modal" role="dialog" aria-modal="true">
+      <div class="modal-head">
+        <h3 data-i18n="priv_title">Privacy Policy</h3>
+        <button class="close" aria-label="Close">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <path d="M5 5 l14 14 M19 5 l-14 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </button>
+      </div>
+      <h4 data-i18n="priv_h1">What we collect</h4>
+      <p data-i18n="priv_p1">We collect the basic information you submit through the contact form: name, email, and
+        message.</p>
+      <h4 data-i18n="priv_h2">How we use it</h4>
+      <p data-i18n="priv_p2">We use that information only to reply to your inquiry and follow up if needed. Nothing
+        more.</p>
+      <h4 data-i18n="priv_h3">No sale of personal data</h4>
+      <p data-i18n="priv_p3">EcoDrop does not sell, rent, or share your personal data with third parties for marketing.
+      </p>
+      <h4 data-i18n="priv_h4">Your privacy</h4>
+      <p data-i18n="priv_p4">We're committed to handling your information carefully and only for the purpose you shared
+        it for.</p>
+    </div>
+  </div>
+
+  <script src="public/assets/scripts/script.js"></script>
+</body>
+
+</html>

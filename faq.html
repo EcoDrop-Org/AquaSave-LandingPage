@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>AquaSave - FAQ</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="icon" type="image/png" href="public/assets/images/AquaSaveLogo.PNG" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="public/assets/styles/style.css" />
+</head>
+
+<body>
+
+  <nav class="top">
+    <div class="container inner">
+      <a href="index.html" class="brand" aria-label="AquaSave home">
+        <span class="lockup">
+          <img class="logo" src="public/assets/images/AquaSaveLogo.PNG" alt="AquaSave" />
+          <span class="name">
+            <span>AquaSave</span>
+            <span class="by">by EcoDrop</span>
+          </span>
+        </span>
+      </a>
+      <ul>
+        <li><a href="index.html#benefits" data-i18n="nav_benefits">Benefits</a></li>
+        <li><a href="index.html#how" data-i18n="nav_how">How it works</a></li>
+        <li><a href="index.html#features" data-i18n="nav_features">Features</a></li>
+        <li><a href="index.html#about" data-i18n="nav_about">About</a></li>
+        <li><a href="help.html" data-i18n="nav_help">Help</a></li>
+        <li><a href="faq.html" data-i18n="nav_faq">FAQ</a></li>
+      </ul>
+      <div class="nav-actions">
+        <div class="lang" id="langToggle" role="group" aria-label="Language">
+          <span class="pill" aria-hidden="true"></span>
+          <button data-lang="en" class="is-active">
+            <span class="flag" aria-hidden="true">
+              <svg viewBox="0 0 60 30">
+                <clipPath id="t">
+                  <path d="M0 0 v30 h60 V0 z" />
+                </clipPath>
+                <clipPath id="s">
+                  <path d="M30 15 h30 v15 z M0 15 v15 h30 z M0 0 v15 h30 z M30 0 h30 v15 z" />
+                </clipPath>
+                <g clip-path="url(#t)">
+                  <path d="M0 0 v30 h60 V0 z" fill="#012169" />
+                  <path d="M0 0 L60 30 M60 0 L0 30" stroke="#fff" stroke-width="6" />
+                  <path d="M0 0 L60 30 M60 0 L0 30" clip-path="url(#s)" stroke="#C8102E" stroke-width="4" />
+                  <path d="M30 0 v30 M0 15 h60" stroke="#fff" stroke-width="10" />
+                  <path d="M30 0 v30 M0 15 h60" stroke="#C8102E" stroke-width="6" />
+                </g>
+              </svg>
+            </span>
+            EN
+          </button>
+          <button data-lang="es">
+            <span class="flag" aria-hidden="true">
+              <svg viewBox="0 0 60 40">
+                <rect width="60" height="40" fill="#AA151B" />
+                <rect y="10" width="60" height="20" fill="#F1BF00" />
+              </svg>
+            </span>
+            ES
+          </button>
+        </div>
+        <a href="index.html#cta" class="btn btn-primary" data-i18n="nav_cta">Get started</a>
+      </div>
+    </div>
+  </nav>
+
+
+  <section class="s faq-section" id="faq">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="mono" data-i18n="faq_eyebrow">FAQ</div>
+        <h2 data-i18n="faq_title">Frequently asked questions.</h2>
+        <p data-i18n="faq_lead">Browse by category or filter the list to find what you need faster.</p>
+      </div>
+      <div class="faq-filters reveal" id="faqFilters">
+        <button class="is-active" data-filter="all" data-i18n="faq_all">All</button>
+        <button data-filter="billing" data-i18n="faq_billing">Billing</button>
+        <button data-filter="account" data-i18n="faq_account">Account</button>
+        <button data-filter="irrigation" data-i18n="faq_irrigation">Smart irrigation</button>
+        <button data-filter="devices" data-i18n="faq_devices">Devices</button>
+        <button data-filter="plans" data-i18n="faq_plans">Plans</button>
+        <button data-filter="support" data-i18n="faq_support">Technical support</button>
+        <button data-filter="contact" data-i18n="faq_contact">Contact</button>
+      </div>
+      <div class="faq-list" id="faqList">
+        <div class="faq-item" data-cat="billing">
+          <button class="faq-q"><span data-i18n="faq_q1">When will I be charged?</span><span class="tag"
+              data-i18n="faq_billing">Billing</span><span class="chev"><svg width="14" height="14" viewBox="0 0 24 24"
+                fill="none">
+                <path d="M6 9 l6 6 l6 -6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg></span></button>
+          <div class="faq-a">
+            <div class="faq-a-inner" data-i18n="faq_a1">Charges follow the billing cycle for the plan you selected.
+              You'll always see the renewal date and payment status in your account area.</div>
+          </div>
+        </div>
+        <div class="faq-item" data-cat="billing">
+          <button class="faq-q"><span data-i18n="faq_q2">Can I update my billing details?</span><span class="tag"
+              data-i18n="faq_billing">Billing</span><span class="chev"><svg width="14" height="14" viewBox="0 0 24 24"
+                fill="none">
+                <path d="M6 9 l6 6 l6 -6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg></span></button>
+          <div class="faq-a">
+            <div class="faq-a-inner" data-i18n="faq_a2">Yes. You can change your billing information, payment method,
+              and invoice details from your account settings.</div>
+          </div>
+        </div>
+        <div class="faq-item" data-cat="account">
+          <button class="faq-q"><span data-i18n="faq_q3">How do I reset my password?</span><span class="tag"
+              data-i18n="faq_account">Account</span><span class="chev"><svg width="14" height="14" viewBox="0 0 24 24"
+                fill="none">
+                <path d="M6 9 l6 6 l6 -6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg></span></button>
+          <div class="faq-a">
+            <div class="faq-a-inner" data-i18n="faq_a3">Use the forgot-password option on the sign-in screen. We'll send
+              you a secure link so you can choose a new password.</div>
+          </div>
+        </div>
+        <div class="faq-item" data-cat="irrigation">
+          <button class="faq-q"><span data-i18n="faq_q4">How does AquaSave decide when to water?</span><span class="tag"
+              data-i18n="faq_irrigation">Smart irrigation</span><span class="chev"><svg width="14" height="14"
+                viewBox="0 0 24 24" fill="none">
+                <path d="M6 9 l6 6 l6 -6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg></span></button>
+          <div class="faq-a">
+            <div class="faq-a-inner" data-i18n="faq_a4">AquaSave combines soil readings, watering rules, and local
+              weather context so irrigation runs only when conditions actually call for it.</div>
+          </div>
+        </div>
+        <div class="faq-item" data-cat="devices">
+          <button class="faq-q"><span data-i18n="faq_q5">How do I pair the device?</span><span class="tag"
+              data-i18n="faq_devices">Devices</span><span class="chev"><svg width="14" height="14" viewBox="0 0 24 24"
+                fill="none">
+                <path d="M6 9 l6 6 l6 -6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg></span></button>
+          <div class="faq-a">
+            <div class="faq-a-inner" data-i18n="faq_a5">Open the app, choose add device, and follow the guided pairing
+              steps. Keep the device powered and close to your router during setup.</div>
+          </div>
+        </div>
+        <div class="faq-item" data-cat="devices">
+          <button class="faq-q"><span data-i18n="faq_q6">What devices are supported?</span><span class="tag"
+              data-i18n="faq_devices">Devices</span><span class="chev"><svg width="14" height="14" viewBox="0 0 24 24"
+                fill="none">
+                <path d="M6 9 l6 6 l6 -6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg></span></button>
+          <div class="faq-a">
+            <div class="faq-a-inner" data-i18n="faq_a6">AquaSave is designed for the EcoDrop smart irrigation device and
+              its supported sensor accessories. Compatibility details appear during onboarding.</div>
+          </div>
+        </div>
+        <div class="faq-item" data-cat="plans">
+          <button class="faq-q"><span data-i18n="faq_q7">What is included in each plan?</span><span class="tag"
+              data-i18n="faq_plans">Plans</span><span class="chev"><svg width="14" height="14" viewBox="0 0 24 24"
+                fill="none">
+                <path d="M6 9 l6 6 l6 -6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg></span></button>
+          <div class="faq-a">
+            <div class="faq-a-inner" data-i18n="faq_a7">Plans can include different levels of automation, device
+              capacity, reporting, and support. The plan details page compares them side by side.</div>
+          </div>
+        </div>
+        <div class="faq-item" data-cat="support">
+          <button class="faq-q"><span data-i18n="faq_q8">What should I do if my device goes offline?</span><span
+              class="tag" data-i18n="faq_support">Technical support</span><span class="chev"><svg width="14" height="14"
+                viewBox="0 0 24 24" fill="none">
+                <path d="M6 9 l6 6 l6 -6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg></span></button>
+          <div class="faq-a">
+            <div class="faq-a-inner" data-i18n="faq_a8">First check power, Wi-Fi signal, and device status in the app.
+              If it stays offline, restart the device and contact support so we can help you diagnose it.</div>
+          </div>
+        </div>
+        <div class="faq-item" data-cat="contact">
+          <button class="faq-q"><span data-i18n="faq_q9">How can I contact the AquaSave team?</span><span class="tag"
+              data-i18n="faq_contact">Contact</span><span class="chev"><svg width="14" height="14" viewBox="0 0 24 24"
+                fill="none">
+                <path d="M6 9 l6 6 l6 -6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg></span></button>
+          <div class="faq-a">
+            <div class="faq-a-inner" data-i18n="faq_a9">Use the contact form on the main site and tell us what you need.
+              We'll route your message to the right person and get back to you.</div>
+          </div>
+        </div>
+      </div>
+      <div class="still-help reveal">
+        <h3 data-i18n="still_t">Still need help?</h3>
+        <p data-i18n="still_p">Couldn't find what you were looking for? Contact us and we'll help you.</p>
+        <a href="index.html#contact" class="btn" data-i18n="still_btn">Contact us</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="foot-grid">
+        <div class="foot-brand">
+          <div class="foot-lockup">
+            <img src="public/assets/images/AquaSaveLogo.PNG" alt="AquaSave" />
+            <span class="name">AquaSave</span>
+          </div>
+          <p class="foot-slogan" data-i18n="foot_slogan">Smarter irrigation, one drop at a time.</p>
+          <div class="foot-by">
+            <span data-i18n="foot_by">A product by</span>
+            <img src="public/assets/images/EcoDropLogo.PNG" alt="EcoDrop" />
+          </div>
+          <div class="socials" aria-label="Social media">
+            <a href="#" aria-label="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M14 21 v-7 h2.5 l.5 -3 H 14 V 9.2 c 0 -.9 .3 -1.5 1.5 -1.5 H 17 V 5 c -.3 0 -1.4 -.1 -2.5 -.1 c -2.5 0 -4.5 1.5 -4.5 4.3 V 11 H 7 v 3 h 3 v 7 z" />
+              </svg></a>
+            <a href="#" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="2" />
+                <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2" />
+                <circle cx="17.5" cy="6.5" r="1" fill="currentColor" />
+              </svg></a>
+            <a href="#" aria-label="X"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M18 3 h3 l-7.5 8.6 L 22 21 h-7 l-5 -6.5 L 4 21 H 1 l 8 -9.2 L 1 3 h 7 l 4.5 6 z M 16.7 19 h 1.7 L 7.4 5 H 5.6 z" />
+              </svg></a>
+            <a href="#" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <rect x="3" y="9" width="3.5" height="11" />
+                <circle cx="4.75" cy="5" r="2" />
+                <path
+                  d="M9 9 h3.3 v1.6 c .8 -1.2 2.2 -1.9 3.7 -1.9 c 2.7 0 4 1.7 4 5 V 20 h-3.5 v-5.5 c 0 -1.6 -.6 -2.5 -1.9 -2.5 c -1.4 0 -2.1 1 -2.1 2.5 V 20 H 9 z" />
+              </svg></a>
+            <a href="#" aria-label="YouTube"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M22 8 c -.2 -1.7 -.9 -2.4 -2.5 -2.6 C 17.3 5 12 5 12 5 s -5.3 0 -7.5 .4 C 2.9 5.6 2.2 6.3 2 8 C 1.6 10.2 1.6 12 1.6 12 s 0 1.8 .4 4 c .2 1.7 .9 2.4 2.5 2.6 C 6.7 19 12 19 12 19 s 5.3 0 7.5 -.4 c 1.6 -.2 2.3 -.9 2.5 -2.6 c .4 -2.2 .4 -4 .4 -4 s 0 -1.8 -.4 -4 z M 10 15 V 9 l 5 3 z" />
+              </svg></a>
+          </div>
+        </div>
+        <div class="foot-col">
+          <h5 data-i18n="foot_explore">Explore</h5>
+          <ul>
+            <li><a href="index.html#benefits" data-i18n="nav_benefits">Benefits</a></li>
+            <li><a href="index.html#how" data-i18n="nav_how">How it works</a></li>
+            <li><a href="index.html#features" data-i18n="nav_features">Features</a></li>
+            <li><a href="index.html#about" data-i18n="nav_about">About</a></li>
+            <li><a href="index.html#contact" data-i18n="nav_contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="foot-col">
+          <h5 data-i18n="foot_help">Help</h5>
+          <ul>
+            <li><a href="help.html" data-i18n="foot_help_center">Help Center</a></li>
+            <li><a href="faq.html" data-i18n="foot_faq">FAQ</a></li>
+            <li><a href="index.html#contact" data-i18n="foot_contact_us">Contact</a></li>
+          </ul>
+        </div>
+        <div class="foot-col">
+          <h5 data-i18n="foot_legal">Legal</h5>
+          <ul>
+            <li><button data-modal="terms" data-i18n="foot_terms">Terms &amp; Conditions</button></li>
+            <li><button data-modal="privacy" data-i18n="foot_privacy">Privacy Policy</button></li>
+          </ul>
+        </div>
+      </div>
+      <div class="foot-bottom">
+        <span class="foot-copy">© 2026 EcoDrop · AquaSave</span>
+        <div class="foot-bottom-right">
+          <div class="lang foot-lang" role="group" aria-label="Footer language">
+            <span class="pill" aria-hidden="true"></span>
+            <button data-lang="en" class="is-active">
+              <span class="flag" aria-hidden="true">
+                <svg viewBox="0 0 60 30">
+                  <clipPath id="ft">
+                    <path d="M0 0 v30 h60 V0 z" />
+                  </clipPath>
+                  <clipPath id="fs">
+                    <path d="M30 15 h30 v15 z M0 15 v15 h30 z M0 0 v15 h30 z M30 0 h30 v15 z" />
+                  </clipPath>
+                  <g clip-path="url(#ft)">
+                    <path d="M0 0 v30 h60 V0 z" fill="#012169" />
+                    <path d="M0 0 L60 30 M60 0 L0 30" stroke="#fff" stroke-width="6" />
+                    <path d="M0 0 L60 30 M60 0 L0 30" clip-path="url(#fs)" stroke="#C8102E" stroke-width="4" />
+                    <path d="M30 0 v30 M0 15 h60" stroke="#fff" stroke-width="10" />
+                    <path d="M30 0 v30 M0 15 h60" stroke="#C8102E" stroke-width="6" />
+                  </g>
+                </svg>
+              </span>
+              EN
+            </button>
+            <button data-lang="es">
+              <span class="flag" aria-hidden="true">
+                <svg viewBox="0 0 60 40">
+                  <rect width="60" height="40" fill="#AA151B" />
+                  <rect y="10" width="60" height="20" fill="#F1BF00" />
+                </svg>
+              </span>
+              ES
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="modal-backdrop" id="modal-terms" data-modal-id="terms">
+    <div class="modal" role="dialog" aria-modal="true">
+      <div class="modal-head">
+        <h3 data-i18n="terms_title">Terms &amp; Conditions</h3>
+        <button class="close" aria-label="Close">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <path d="M5 5 l14 14 M19 5 l-14 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </button>
+      </div>
+      <h4 data-i18n="terms_h1">Use of the AquaSave website and app</h4>
+      <p data-i18n="terms_p1">By using the AquaSave website or app, you agree to use the service in a responsible way
+        and only for purposes related to monitoring and controlling your own irrigation setup.</p>
+      <h4 data-i18n="terms_h2">Informational purpose</h4>
+      <p data-i18n="terms_p2">The information shown in AquaSave is intended to support your irrigation decisions.
+        EcoDrop is not responsible for plant outcomes derived from those decisions.</p>
+      <h4 data-i18n="terms_h3">Product availability</h4>
+      <p data-i18n="terms_p3">AquaSave is in active development. EcoDrop does not guarantee final availability dates or
+        specific feature sets while the product evolves.</p>
+      <h4 data-i18n="terms_h4">Contact</h4>
+      <p data-i18n="terms_p4">Questions about these terms? Reach out through the contact form on this page.</p>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="modal-privacy" data-modal-id="privacy">
+    <div class="modal" role="dialog" aria-modal="true">
+      <div class="modal-head">
+        <h3 data-i18n="priv_title">Privacy Policy</h3>
+        <button class="close" aria-label="Close">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <path d="M5 5 l14 14 M19 5 l-14 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </button>
+      </div>
+      <h4 data-i18n="priv_h1">What we collect</h4>
+      <p data-i18n="priv_p1">We collect the basic information you submit through the contact form: name, email, and
+        message.</p>
+      <h4 data-i18n="priv_h2">How we use it</h4>
+      <p data-i18n="priv_p2">We use that information only to reply to your inquiry and follow up if needed. Nothing
+        more.</p>
+      <h4 data-i18n="priv_h3">No sale of personal data</h4>
+      <p data-i18n="priv_p3">EcoDrop does not sell, rent, or share your personal data with third parties for marketing.
+      </p>
+      <h4 data-i18n="priv_h4">Your privacy</h4>
+      <p data-i18n="priv_p4">We're committed to handling your information carefully and only for the purpose you shared
+        it for.</p>
+    </div>
+  </div>
+
+  <script src="public/assets/scripts/script.js"></script>
+</body>
+
+</html>
