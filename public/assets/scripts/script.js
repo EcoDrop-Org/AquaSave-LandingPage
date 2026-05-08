@@ -22,9 +22,9 @@
     renderer.toneMappingExposure = 1.05;
     container.appendChild(renderer.domElement);
 
-    scene.add(new THREE.AmbientLight(0xfff6e8, 0.55));
-    scene.add(new THREE.HemisphereLight(0xfff1d6, 0x6b8a5a, 0.5));
-    var key = new THREE.DirectionalLight(0xfff2d8, 1.15);
+    scene.add(new THREE.AmbientLight(0xfff6e8, 0.45));
+    scene.add(new THREE.HemisphereLight(0xfff1d6, 0x6b8a5a, 0.55));
+    var key = new THREE.DirectionalLight(0xfff2d8, 1.30);
     key.position.set(2.5, 8.5, 3.5);
     key.castShadow = true;
     key.shadow.mapSize.width = 2048;
@@ -39,12 +39,20 @@
     key.shadow.normalBias = 0.02;
     key.shadow.radius = 9; // softer penumbra
     scene.add(key);
-    var fill = new THREE.DirectionalLight(0xbcd0ff, 0.45);
+    var fill = new THREE.DirectionalLight(0xbcd0ff, 0.55);
     fill.position.set(-5, 3, 2);
     scene.add(fill);
-    var rim = new THREE.DirectionalLight(0xc6e8a8, 0.3);
+    var rim = new THREE.DirectionalLight(0xc6e8a8, 0.45);
     rim.position.set(0, 2, -4);
     scene.add(rim);
+    // Upward bounce — fakes subsurface translucency on undersides
+    var bounce = new THREE.DirectionalLight(0xa8d878, 0.28);
+    bounce.position.set(0, -2, 3);
+    scene.add(bounce);
+    // Top accent — gentle highlight on leaf tops
+    var topAccent = new THREE.PointLight(0xfff8e8, 0.55, 8, 1.2);
+    topAccent.position.set(0.6, 5.2, 1.8);
+    scene.add(topAccent);
 
     var ground = new THREE.Mesh(
       new THREE.PlaneGeometry(10, 10),
@@ -60,19 +68,27 @@
     var soilMat = new THREE.MeshStandardMaterial({ color: 0x4a2a14, roughness: 1, metalness: 0 });
     var soilTopMat = new THREE.MeshStandardMaterial({ color: 0x6b4226, roughness: 1, metalness: 0, flatShading: true });
     var leafMat = new THREE.MeshStandardMaterial({
-      color: 0x4f9e3a, roughness: 0.72, metalness: 0, side: THREE.DoubleSide,
-      emissive: 0x0e2410, emissiveIntensity: 0.10, vertexColors: true
+      color: 0x4a9436, roughness: 0.62, metalness: 0.02, side: THREE.DoubleSide,
+      emissive: 0x183d20, emissiveIntensity: 0.18, vertexColors: true,
+      flatShading: false
     });
     var leafLightMat = new THREE.MeshStandardMaterial({
-      color: 0x7cc04a, roughness: 0.72, metalness: 0, side: THREE.DoubleSide,
-      emissive: 0x162a14, emissiveIntensity: 0.10, vertexColors: true
+      color: 0x7cc04a, roughness: 0.55, metalness: 0.02, side: THREE.DoubleSide,
+      emissive: 0x214a25, emissiveIntensity: 0.20, vertexColors: true
     });
     var leafDarkMat = new THREE.MeshStandardMaterial({
-      color: 0x357a26, roughness: 0.78, metalness: 0, side: THREE.DoubleSide,
-      emissive: 0x0a1c0a, emissiveIntensity: 0.08, vertexColors: true
+      color: 0x2f7022, roughness: 0.68, metalness: 0.02, side: THREE.DoubleSide,
+      emissive: 0x0e2814, emissiveIntensity: 0.14, vertexColors: true
     });
     var stemMat = new THREE.MeshStandardMaterial({ color: 0x5e8a2c, roughness: 0.8, metalness: 0 });
-    var veinMat = new THREE.MeshStandardMaterial({ color: 0x3d6b22, roughness: 0.7, metalness: 0 });
+    var veinMat = new THREE.MeshStandardMaterial({ color: 0x3d6b22, roughness: 0.65, metalness: 0.03 });
+    var veinFineMat = new THREE.MeshStandardMaterial({ color: 0x4d7e30, roughness: 0.75, metalness: 0 });
+    var dewMat = new THREE.MeshPhysicalMaterial({
+      color: 0xc8e8ff, roughness: 0.05, metalness: 0,
+      transmission: 0.85, thickness: 0.08, ior: 1.33,
+      clearcoat: 1, clearcoatRoughness: 0.05,
+      transparent: true, opacity: 0.92
+    });
 
     var planter = new THREE.Group();
     planter.position.y = -0.2;
@@ -174,49 +190,119 @@
     plant.position.y = 1.36;
     planter.add(plant);
 
-    function buildLeafShape() {
+    function buildLeafShape(seed) {
+      seed = seed || 0;
       var s = new THREE.Shape();
+      // Subtle asymmetric perturbations per shape variant
+      var w = 0.50 + (seed === 1 ? 0.06 : seed === 2 ? -0.04 : 0);
+      var w2 = 0.45 + (seed === 1 ? 0.04 : seed === 2 ? -0.03 : 0);
+      var ty = 0.65 + (seed === 1 ? -0.04 : seed === 2 ? 0.05 : 0);
+      var asym = seed === 2 ? 0.02 : 0;
       s.moveTo(0, 0);
-      s.bezierCurveTo(0.45, 0.15, 0.50, 0.65, 0, 1.0);
-      s.bezierCurveTo(-0.50, 0.65, -0.45, 0.15, 0, 0);
+      s.bezierCurveTo(w2, 0.15, w, ty, asym, 1.0);
+      s.bezierCurveTo(-w + 0.02, ty + 0.02, -w2 + 0.01, 0.15, 0, 0);
       return s;
     }
-    var leafShape = buildLeafShape();
-    var leafGeo = new THREE.ExtrudeGeometry(leafShape, {
-      depth: 0.05, bevelEnabled: true, bevelThickness: 0.04, bevelSize: 0.05, bevelSegments: 4, curveSegments: 32
-    });
-    leafGeo.translate(0, 0, -0.05);
-    var lPos = leafGeo.attributes.position;
-    var lColors = new Float32Array(lPos.count * 3);
-    for (var li = 0; li < lPos.count; li++) {
-      var ly = lPos.getY(li);
-      var lz = lPos.getZ(li);
-      var lx = lPos.getX(li);
-      var curl = Math.pow(Math.max(ly, 0), 1.6) * 0.18;
-      lPos.setZ(li, lz + curl);
-      var bumps = (
-        Math.sin(ly * 14) * 0.008 +
-        Math.sin(lx * 23 + ly * 7) * 0.005 +
-        Math.cos(lx * 31 - ly * 17) * 0.003 +
-        Math.sin(lx * 47 + ly * 41) * 0.002
-      ) * (1 - Math.abs(lx));
-      lPos.setZ(li, lPos.getZ(li) + bumps);
-      var n = (Math.sin(lx * 19 + ly * 13) + Math.cos(lx * 7 - ly * 23)) * 0.5;
-      var brighter = 1 - Math.abs(lx) * 0.15;
-      var darker = Math.pow(Math.max(0, 1 - ly), 0.8);
-      var v = 0.82 + n * 0.10 + brighter * 0.04 - darker * 0.05;
-      v = Math.max(0.7, Math.min(1.0, v));
-      lColors[li * 3] = v;
-      lColors[li * 3 + 1] = Math.min(1.0, v * 1.03);
-      lColors[li * 3 + 2] = v * 0.95;
-    }
-    leafGeo.setAttribute('color', new THREE.BufferAttribute(lColors, 3));
-    leafGeo.computeVertexNormals();
 
-    function makeLeaf(mat, tiltX, yawY, scale, lengthScale, detailLevel) {
+    function buildLeafGeo(seed) {
+      var leafShape = buildLeafShape(seed);
+      var leafGeo = new THREE.ExtrudeGeometry(leafShape, {
+        depth: 0.018, bevelEnabled: true, bevelThickness: 0.018, bevelSize: 0.028, bevelSegments: 5, curveSegments: 40
+      });
+      leafGeo.translate(0, 0, -0.027);
+      var lPos = leafGeo.attributes.position;
+      var lColors = new Float32Array(lPos.count * 3);
+      var seedHash = (seed + 1) * 11.7;
+      for (var li = 0; li < lPos.count; li++) {
+        var ly = lPos.getY(li);
+        var lz = lPos.getZ(li);
+        var lx = lPos.getX(li);
+        // Per-leaf curl variation
+        var curl = Math.pow(Math.max(ly, 0), 1.6) * (0.17 + seed * 0.012);
+        lPos.setZ(li, lz + curl);
+        // Approx leaf width profile for edge detection (sin curve peaks ~y=0.5)
+        var widthAtY = 0.50 * Math.sin(Math.PI * Math.min(Math.max(ly, 0.0), 1.0));
+        var dCenter = Math.abs(lx) / Math.max(0.0008, widthAtY); // 0 center, 1 edge
+        var rimT = Math.pow(Math.min(1, Math.max(0, dCenter)), 4);
+        var inner = 1 - rimT;
+        // Surface micro-detail: layered noise + per-seed phase
+        var bumps = (
+          Math.sin(ly * 14 + seedHash) * 0.010 +
+          Math.sin(lx * 23 + ly * 7 + seedHash) * 0.006 +
+          Math.cos(lx * 31 - ly * 17 + seedHash) * 0.004 +
+          Math.sin(lx * 47 + ly * 41) * 0.0025 +
+          Math.sin(lx * 71 - ly * 53 + seedHash * 0.7) * 0.0015
+        ) * (1 - Math.abs(lx));
+        // Vein groove
+        var veinGroove = -Math.exp(-Math.pow(lx * 14, 2)) * 0.012 * (ly > 0.05 ? 1 : 0);
+        // Tiny edge irregularities (push edge in/out slightly to break perfect curve look)
+        var edgeNoise = Math.sin(ly * 38 + seedHash) * 0.008 * rimT * (lz > -0.01 ? 1 : 0.4);
+        lPos.setZ(li, lPos.getZ(li) + bumps + veinGroove + edgeNoise);
+
+        // Organic color variation
+        var noise = (Math.sin(lx * 19 + ly * 13 + seedHash) + Math.cos(lx * 7 - ly * 23)) * 0.5;
+        var mottle = (Math.sin(lx * 41 + ly * 33) + Math.cos(lx * 53 - ly * 47 + seedHash)) * 0.18;
+        var brighter = 1 - Math.abs(lx) * 0.15;
+        var darker = Math.pow(Math.max(0, 1 - ly), 0.8);
+        var tip = Math.pow(Math.max(0, ly - 0.55) / 0.45, 1.5);
+        // Sparse darker spots / blemishes
+        var blemish = 0;
+        var bx1 = Math.sin(lx * 4.3 + seedHash * 1.7) * Math.cos(ly * 5.1 - seedHash * 0.9);
+        if (bx1 > 0.85) blemish = (bx1 - 0.85) * 0.35;
+        var v = 0.78 + noise * 0.09 + mottle * 0.04 + brighter * 0.05 - darker * 0.07 - blemish;
+        v = Math.max(0.55, Math.min(1.02, v));
+        var rC = v * 0.92;
+        var gC = Math.min(1.0, v * 1.06);
+        var bC = v * 0.76;
+        // Tip warmth
+        rC += tip * 0.12;
+        gC += tip * 0.05;
+        bC -= tip * 0.04;
+        // Base/center darkening (vein zone)
+        rC -= darker * 0.05;
+        gC -= darker * 0.02;
+        bC += darker * 0.02;
+        // Rim highlight — lighter, slightly yellow at outer edge (catches light)
+        var rim = Math.pow(rimT, 2.5);
+        rC += rim * 0.10;
+        gC += rim * 0.13;
+        bC += rim * 0.05;
+        // Center vein-zone shadow
+        var veinShade = Math.exp(-Math.pow(lx * 18, 2)) * (ly > 0.05 ? 1 : 0) * 0.05;
+        rC -= veinShade;
+        gC -= veinShade * 1.1;
+        bC -= veinShade * 0.6;
+        lColors[li * 3] = Math.max(0.14, Math.min(1.0, rC));
+        lColors[li * 3 + 1] = Math.max(0.26, Math.min(1.0, gC));
+        lColors[li * 3 + 2] = Math.max(0.08, Math.min(1.0, bC));
+      }
+      leafGeo.setAttribute('color', new THREE.BufferAttribute(lColors, 3));
+      leafGeo.computeVertexNormals();
+      return leafGeo;
+    }
+
+    var leafGeoVariants = [buildLeafGeo(0), buildLeafGeo(1), buildLeafGeo(2)];
+    var leafGeo = leafGeoVariants[0]; // backwards compat for veins computed against it
+
+    function tintMaterial(baseMat, hueShift, lightnessMul, satMul) {
+      var m = baseMat.clone();
+      var c = m.color.clone();
+      var hsl = { h: 0, s: 0, l: 0 };
+      c.getHSL(hsl);
+      hsl.h = (hsl.h + hueShift + 1) % 1;
+      hsl.l = Math.max(0, Math.min(1, hsl.l * (lightnessMul || 1)));
+      hsl.s = Math.max(0, Math.min(1, hsl.s * (satMul || 1)));
+      c.setHSL(hsl.h, hsl.s, hsl.l);
+      m.color = c;
+      return m;
+    }
+
+    function makeLeaf(mat, tiltX, yawY, scale, lengthScale, detailLevel, withDew, geoIdx, tint) {
       detailLevel = detailLevel || 1;
       var g = new THREE.Group();
-      var leaf = new THREE.Mesh(leafGeo, mat);
+      var useGeo = leafGeoVariants[(geoIdx || 0) % leafGeoVariants.length];
+      var useMat = tint ? tintMaterial(mat, tint.h || 0, tint.l || 1, tint.s || 1) : mat;
+      var leaf = new THREE.Mesh(useGeo, useMat);
       leaf.scale.set(scale, (lengthScale || 1.0) * scale, scale);
       leaf.castShadow = true; leaf.receiveShadow = true;
       g.add(leaf);
@@ -233,30 +319,59 @@
       var vein = new THREE.Mesh(veinTube, veinMat);
       vein.castShadow = true;
       g.add(vein);
-      function addSideVein(t0, tEnd, dir, radiusMul) {
+      function addSideVein(t0, tEnd, dir, radiusMul, useFine) {
         var sPts = [];
-        for (var si = 0; si <= 8; si++) {
-          var sp = si / 8;
+        for (var si = 0; si <= 10; si++) {
+          var sp = si / 10;
           var st = t0 + sp * (tEnd - t0);
           var sCurl = Math.pow(st, 1.6) * 0.18 * scale;
           var widthFactor = 0.30 * (1 - Math.pow(st, 1.2));
           var sideX = dir * sp * widthFactor * scale;
-          sPts.push(new THREE.Vector3(sideX, st * L, sCurl + 0.052 * scale));
+          // gentle wobble for organic feel
+          var wob = Math.sin(sp * 6 + (dir > 0 ? 1.7 : 0.4)) * 0.006 * scale;
+          sPts.push(new THREE.Vector3(sideX + wob, st * L, sCurl + 0.052 * scale));
         }
         var sCurve = new THREE.CatmullRomCurve3(sPts);
-        var sTube = new THREE.TubeGeometry(sCurve, 14, (radiusMul || 0.006) * scale, 5, false);
-        g.add(new THREE.Mesh(sTube, veinMat));
+        var sTube = new THREE.TubeGeometry(sCurve, 16, (radiusMul || 0.006) * scale, 5, false);
+        g.add(new THREE.Mesh(sTube, useFine ? veinFineMat : veinMat));
       }
       if (detailLevel >= 2) {
-        addSideVein(0.18, 0.42, +1, 0.0075);
-        addSideVein(0.18, 0.42, -1, 0.0075);
-        addSideVein(0.40, 0.62, +1, 0.0065);
-        addSideVein(0.40, 0.62, -1, 0.0065);
-        addSideVein(0.60, 0.78, +1, 0.0055);
-        addSideVein(0.60, 0.78, -1, 0.0055);
+        addSideVein(0.16, 0.44, +1, 0.0078);
+        addSideVein(0.16, 0.44, -1, 0.0078);
+        addSideVein(0.38, 0.64, +1, 0.0066);
+        addSideVein(0.38, 0.64, -1, 0.0066);
+        addSideVein(0.58, 0.80, +1, 0.0056);
+        addSideVein(0.58, 0.80, -1, 0.0056);
+        // fine sub-veins between the major ones
+        addSideVein(0.26, 0.40, +1, 0.0035, true);
+        addSideVein(0.26, 0.40, -1, 0.0035, true);
+        addSideVein(0.48, 0.62, +1, 0.0030, true);
+        addSideVein(0.48, 0.62, -1, 0.0030, true);
       } else {
-        addSideVein(0.30, 0.55, +1, 0.006);
-        addSideVein(0.30, 0.55, -1, 0.006);
+        addSideVein(0.28, 0.56, +1, 0.0062);
+        addSideVein(0.28, 0.56, -1, 0.0062);
+        addSideVein(0.50, 0.72, +1, 0.0042, true);
+        addSideVein(0.50, 0.72, -1, 0.0042, true);
+      }
+      // Tiny dewdrops near the base of the leaf for a fresh look
+      if (withDew) {
+        var dews = [
+          { x: 0.06, y: 0.22, r: 0.022 },
+          { x: -0.10, y: 0.34, r: 0.018 },
+          { x: 0.14, y: 0.48, r: 0.014 }
+        ];
+        for (var di = 0; di < dews.length; di++) {
+          var d = dews[di];
+          var dCurlZ = Math.pow(d.y, 1.6) * 0.18 * scale + 0.062 * scale;
+          var dew = new THREE.Mesh(
+            new THREE.SphereGeometry(d.r * scale, 14, 10),
+            dewMat
+          );
+          dew.position.set(d.x * scale, d.y * L, dCurlZ);
+          dew.scale.set(1, 0.85, 0.7);
+          dew.castShadow = true;
+          g.add(dew);
+        }
       }
       g.rotation.order = 'YXZ';
       g.rotation.y = yawY;
@@ -269,12 +384,29 @@
     plant.add(centerStem);
 
 
-    plant.add(makeLeaf(leafMat, -0.10, Math.PI, 1.15, 1.40, 2));
-    plant.add(makeLeaf(leafMat, Math.PI * 0.28, Math.PI * 0.50, 1.00, 1.10));
-    plant.add(makeLeaf(leafMat, Math.PI * 0.28, -Math.PI * 0.50, 1.00, 1.10));
-    plant.add(makeLeaf(leafDarkMat, Math.PI * 0.40, Math.PI * 0.25, 0.95, 1.00));
-    plant.add(makeLeaf(leafDarkMat, Math.PI * 0.40, -Math.PI * 0.25, 0.95, 1.00));
-    plant.add(makeLeaf(leafMat, Math.PI * 0.45, 0, 0.90, 0.95));
+    // Each leaf uses a different shape variant + tiny hue/lightness tint for organic variety
+    plant.add(makeLeaf(leafMat, -0.10, Math.PI, 1.15, 1.40, 2, true, 0, { h: -0.005, l: 1.04, s: 1.05 }));
+    plant.add(makeLeaf(leafLightMat, Math.PI * 0.28, Math.PI * 0.50, 1.00, 1.10, 2, true, 1, { h: 0.012, l: 1.00, s: 0.95 }));
+    plant.add(makeLeaf(leafMat, Math.PI * 0.28, -Math.PI * 0.50, 1.00, 1.10, 2, false, 2, { h: -0.008, l: 0.95, s: 1.0 }));
+    plant.add(makeLeaf(leafDarkMat, Math.PI * 0.40, Math.PI * 0.25, 0.95, 1.00, 2, false, 1, { h: 0.005, l: 1.0, s: 1.05 }));
+    plant.add(makeLeaf(leafDarkMat, Math.PI * 0.40, -Math.PI * 0.25, 0.95, 1.00, 2, false, 2, { h: -0.012, l: 0.92, s: 1.0 }));
+    plant.add(makeLeaf(leafMat, Math.PI * 0.45, 0, 0.90, 0.95, 1, false, 0, { h: 0.008, l: 1.02, s: 0.95 }));
+
+    // Mid-layer filler leaves for fuller foliage (placed between the main ones)
+    var fillers = [
+      { mat: leafMat, tilt: Math.PI * 0.34, yaw: Math.PI * 0.78, sc: 0.78, ls: 0.95, gi: 1, t: { h: 0.006, l: 0.98, s: 1.05 } },
+      { mat: leafMat, tilt: Math.PI * 0.34, yaw: -Math.PI * 0.78, sc: 0.80, ls: 0.95, gi: 0, t: { h: -0.010, l: 1.02, s: 0.95 } },
+      { mat: leafLightMat, tilt: Math.PI * 0.22, yaw: Math.PI * 0.95, sc: 0.72, ls: 1.00, gi: 2, t: { h: 0.014, l: 1.00, s: 1.00 } },
+      { mat: leafLightMat, tilt: Math.PI * 0.22, yaw: -Math.PI * 0.95, sc: 0.74, ls: 1.00, gi: 1, t: { h: 0.004, l: 1.04, s: 0.95 } },
+      { mat: leafDarkMat, tilt: Math.PI * 0.50, yaw: Math.PI * 0.62, sc: 0.62, ls: 0.85, gi: 2, t: { h: -0.014, l: 0.90, s: 1.05 } },
+      { mat: leafDarkMat, tilt: Math.PI * 0.50, yaw: -Math.PI * 0.62, sc: 0.60, ls: 0.85, gi: 0, t: { h: 0.000, l: 0.92, s: 1.0 } },
+      { mat: leafMat, tilt: Math.PI * 0.15, yaw: Math.PI * 1.20, sc: 0.66, ls: 1.05, gi: 1, t: { h: 0.010, l: 1.05, s: 0.95 } },
+      { mat: leafMat, tilt: Math.PI * 0.15, yaw: -Math.PI * 1.20, sc: 0.64, ls: 1.05, gi: 2, t: { h: -0.006, l: 1.00, s: 1.05 } }
+    ];
+    for (var fIdx = 0; fIdx < fillers.length; fIdx++) {
+      var fl = fillers[fIdx];
+      plant.add(makeLeaf(fl.mat, fl.tilt, fl.yaw, fl.sc, fl.ls, 1, false, fl.gi, fl.t));
+    }
 
     planter.rotation.x = 0.16;
 
@@ -552,17 +684,56 @@
     });
   }
 
+  const navEl = document.querySelector('nav.top');
   window.addEventListener('scroll', () => {
     const y = window.scrollY;
     document.querySelectorAll('.data-token').forEach((c, i) => {
       c.style.translate = `0 ${Math.sin(y / 150 + i) * 4}px`;
     });
+    if (navEl) navEl.classList.toggle('is-scrolled', y > 8);
   }, { passive: true });
+
+  // Hamburger menu toggle (uses body.menu-open so the panel/backdrop escape any
+  // ancestor backdrop-filter/transform that traps position:fixed)
+  const navToggleBtn = document.getElementById('navToggle');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const mobileBackdrop = document.getElementById('mobileBackdrop');
+  const mobileMenuClose = document.getElementById('mobileMenuClose');
+  if (navToggleBtn && mobileMenu) {
+    const closeMenu = () => {
+      document.body.classList.remove('menu-open');
+      navToggleBtn.setAttribute('aria-expanded', 'false');
+      mobileMenu.setAttribute('aria-hidden', 'true');
+      if (mobileBackdrop) mobileBackdrop.setAttribute('aria-hidden', 'true');
+    };
+    navToggleBtn.addEventListener('click', () => {
+      const open = !document.body.classList.contains('menu-open');
+      document.body.classList.toggle('menu-open', open);
+      navToggleBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      mobileMenu.setAttribute('aria-hidden', open ? 'false' : 'true');
+      if (mobileBackdrop) mobileBackdrop.setAttribute('aria-hidden', open ? 'false' : 'true');
+    });
+    mobileMenu.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', closeMenu);
+    });
+    if (mobileMenuClose) mobileMenuClose.addEventListener('click', closeMenu);
+    if (mobileBackdrop) mobileBackdrop.addEventListener('click', closeMenu);
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeMenu();
+    });
+    const mq = window.matchMedia('(min-width: 1001px)');
+    mq.addEventListener('change', (e) => { if (e.matches) closeMenu(); });
+  }
+
+  // Tone down decorative animations on small screens for perf and visual calm
+  const isSmallScreen = window.matchMedia('(max-width: 760px)').matches;
+  const reduceAnim = isSmallScreen || window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   const eco = document.getElementById('ecoAnim');
   if (eco) {
     const sizes = ['', 's', 't'];
-    for (let i = 0; i < 14; i++) {
+    const ecoCount = reduceAnim ? 6 : 14;
+    for (let i = 0; i < ecoCount; i++) {
       const l = document.createElement('span');
       l.className = 'a-leaf ' + sizes[i % 3];
       l.style.setProperty('--y0', (15 + Math.random() * 70) + '%');
@@ -571,7 +742,7 @@
       l.style.animationDelay = (Math.random() * -12) + 's';
       eco.appendChild(l);
     }
-    const cornerLeaves = [
+    const cornerLeavesAll = [
       ['t', -30, -14, -4, 0.62, 8.5, -1.4],
       ['', -8, -6, 10, 0.55, 9.2, -3.1],
       ['s', 18, 4, -12, 0.46, 8.8, -2.2],
@@ -581,6 +752,7 @@
       ['', 20, 58, -18, 0.52, 10.4, -5.2],
       ['s', -2, 72, 8, 0.42, 9.1, -2.9]
     ];
+    const cornerLeaves = reduceAnim ? cornerLeavesAll.slice(0, 4) : cornerLeavesAll;
     cornerLeaves.forEach(([size, x, y, y0, op, duration, delay]) => {
       const l = document.createElement('span');
       l.className = 'a-leaf corner ' + size;
@@ -596,7 +768,8 @@
   const aqua = document.getElementById('aquaAnim');
   if (aqua) {
     const sizes = ['', 's', 't'];
-    for (let i = 0; i < 12; i++) {
+    const aquaCount = reduceAnim ? 6 : 12;
+    for (let i = 0; i < aquaCount; i++) {
       const d = document.createElement('span');
       d.className = 'a-drop ' + sizes[i % 3];
       d.style.left = (5 + Math.random() * 90) + '%';
@@ -616,7 +789,7 @@
 
   const rain = document.getElementById('rain');
   if (rain) {
-    const drops = 60;
+    const drops = reduceAnim ? 24 : 60;
     for (let i = 0; i < drops; i++) {
       const s = document.createElement('span');
       s.style.left = Math.random() * 100 + '%';
