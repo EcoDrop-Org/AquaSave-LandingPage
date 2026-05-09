@@ -45,11 +45,11 @@
     var rim = new THREE.DirectionalLight(0xc6e8a8, 0.45);
     rim.position.set(0, 2, -4);
     scene.add(rim);
-    // Upward bounce — fakes subsurface translucency on undersides
+    // Upward bounce, fakes subsurface translucency on undersides
     var bounce = new THREE.DirectionalLight(0xa8d878, 0.28);
     bounce.position.set(0, -2, 3);
     scene.add(bounce);
-    // Top accent — gentle highlight on leaf tops
+    // Top accent, gentle highlight on leaf tops
     var topAccent = new THREE.PointLight(0xfff8e8, 0.55, 8, 1.2);
     topAccent.position.set(0.6, 5.2, 1.8);
     scene.add(topAccent);
@@ -81,8 +81,14 @@
       emissive: 0x0e2814, emissiveIntensity: 0.14, vertexColors: true
     });
     var stemMat = new THREE.MeshStandardMaterial({ color: 0x5e8a2c, roughness: 0.8, metalness: 0 });
-    var veinMat = new THREE.MeshStandardMaterial({ color: 0x3d6b22, roughness: 0.65, metalness: 0.03 });
-    var veinFineMat = new THREE.MeshStandardMaterial({ color: 0x4d7e30, roughness: 0.75, metalness: 0 });
+    var veinMat = new THREE.MeshStandardMaterial({
+      color: 0x86b95b, roughness: 0.58, metalness: 0.02,
+      emissive: 0x162d12, emissiveIntensity: 0.06
+    });
+    var veinFineMat = new THREE.MeshStandardMaterial({
+      color: 0x6fa646, roughness: 0.66, metalness: 0.01,
+      emissive: 0x10270f, emissiveIntensity: 0.045
+    });
     var dewMat = new THREE.MeshPhysicalMaterial({
       color: 0xc8e8ff, roughness: 0.05, metalness: 0,
       transmission: 0.85, thickness: 0.08, ior: 1.33,
@@ -262,7 +268,7 @@
         rC -= darker * 0.05;
         gC -= darker * 0.02;
         bC += darker * 0.02;
-        // Rim highlight — lighter, slightly yellow at outer edge (catches light)
+        // Rim highlight, lighter, slightly yellow at outer edge (catches light)
         var rim = Math.pow(rimT, 2.5);
         rC += rim * 0.10;
         gC += rim * 0.13;
@@ -304,54 +310,59 @@
       var useMat = tint ? tintMaterial(mat, tint.h || 0, tint.l || 1, tint.s || 1) : mat;
       var leaf = new THREE.Mesh(useGeo, useMat);
       leaf.scale.set(scale, (lengthScale || 1.0) * scale, scale);
+      leaf.renderOrder = 1;
       leaf.castShadow = true; leaf.receiveShadow = true;
       g.add(leaf);
       var L = (lengthScale || 1.0) * scale;
-      var veinPts = [];
-      for (var vi = 0; vi <= 16; vi++) {
-        var vt = vi / 16;
-        var vCurl = Math.pow(vt, 1.6) * 0.18 * scale;
-        veinPts.push(new THREE.Vector3(0, vt * L, vCurl + 0.05 * scale));
-      }
-      var veinCurve = new THREE.CatmullRomCurve3(veinPts);
-      var midRadius = (detailLevel >= 2 ? 0.016 : 0.013) * scale;
-      var veinTube = new THREE.TubeGeometry(veinCurve, 24, midRadius, 6, false);
-      var vein = new THREE.Mesh(veinTube, veinMat);
-      vein.castShadow = true;
-      g.add(vein);
-      function addSideVein(t0, tEnd, dir, radiusMul, useFine) {
-        var sPts = [];
-        for (var si = 0; si <= 10; si++) {
-          var sp = si / 10;
-          var st = t0 + sp * (tEnd - t0);
-          var sCurl = Math.pow(st, 1.6) * 0.18 * scale;
-          var widthFactor = 0.30 * (1 - Math.pow(st, 1.2));
-          var sideX = dir * sp * widthFactor * scale;
-          // gentle wobble for organic feel
-          var wob = Math.sin(sp * 6 + (dir > 0 ? 1.7 : 0.4)) * 0.006 * scale;
-          sPts.push(new THREE.Vector3(sideX + wob, st * L, sCurl + 0.052 * scale));
-        }
-        var sCurve = new THREE.CatmullRomCurve3(sPts);
-        var sTube = new THREE.TubeGeometry(sCurve, 16, (radiusMul || 0.006) * scale, 5, false);
-        g.add(new THREE.Mesh(sTube, useFine ? veinFineMat : veinMat));
-      }
       if (detailLevel >= 2) {
-        addSideVein(0.16, 0.44, +1, 0.0078);
-        addSideVein(0.16, 0.44, -1, 0.0078);
-        addSideVein(0.38, 0.64, +1, 0.0066);
-        addSideVein(0.38, 0.64, -1, 0.0066);
-        addSideVein(0.58, 0.80, +1, 0.0056);
-        addSideVein(0.58, 0.80, -1, 0.0056);
-        // fine sub-veins between the major ones
-        addSideVein(0.26, 0.40, +1, 0.0035, true);
-        addSideVein(0.26, 0.40, -1, 0.0035, true);
-        addSideVein(0.48, 0.62, +1, 0.0030, true);
-        addSideVein(0.48, 0.62, -1, 0.0030, true);
-      } else {
-        addSideVein(0.28, 0.56, +1, 0.0062);
-        addSideVein(0.28, 0.56, -1, 0.0062);
-        addSideVein(0.50, 0.72, +1, 0.0042, true);
-        addSideVein(0.50, 0.72, -1, 0.0042, true);
+        var veinSide = -1;
+        var veinLift = veinSide * 0.086 * scale;
+        var veinPts = [];
+        for (var vi = 0; vi <= 16; vi++) {
+          var vt = vi / 16;
+          var vCurl = Math.pow(vt, 1.6) * 0.18 * scale;
+          veinPts.push(new THREE.Vector3(0, vt * L, vCurl + veinLift));
+        }
+        var veinCurve = new THREE.CatmullRomCurve3(veinPts);
+        var midRadius = (detailLevel >= 2 ? 0.018 : 0.014) * scale;
+        var veinTube = new THREE.TubeGeometry(veinCurve, 24, midRadius, 6, false);
+        var vein = new THREE.Mesh(veinTube, veinMat);
+        vein.renderOrder = 3;
+        vein.castShadow = false;
+        g.add(vein);
+        function addSideVein(t0, tEnd, dir, radiusMul, useFine) {
+          var sPts = [];
+          var sideLift = veinSide * 0.092 * scale;
+          for (var si = 0; si <= 10; si++) {
+            var sp = si / 10;
+            var st = t0 + sp * (tEnd - t0);
+            var sCurl = Math.pow(st, 1.6) * 0.18 * scale;
+            var widthFactor = 0.30 * (1 - Math.pow(st, 1.2));
+            var sideX = dir * sp * widthFactor * scale;
+            // gentle wobble for organic feel
+            var wob = Math.sin(sp * 6 + (dir > 0 ? 1.7 : 0.4)) * 0.006 * scale;
+            sPts.push(new THREE.Vector3(sideX + wob, st * L, sCurl + sideLift));
+          }
+          var sCurve = new THREE.CatmullRomCurve3(sPts);
+          var sTube = new THREE.TubeGeometry(sCurve, 16, (radiusMul || 0.006) * scale, 5, false);
+          var sideVein = new THREE.Mesh(sTube, useFine ? veinFineMat : veinMat);
+          sideVein.renderOrder = 3;
+          sideVein.castShadow = false;
+          g.add(sideVein);
+        }
+        if (detailLevel >= 2) {
+          addSideVein(0.16, 0.44, +1, 0.0078);
+          addSideVein(0.16, 0.44, -1, 0.0078);
+          addSideVein(0.38, 0.64, +1, 0.0066);
+          addSideVein(0.38, 0.64, -1, 0.0066);
+          addSideVein(0.58, 0.80, +1, 0.0056);
+          addSideVein(0.58, 0.80, -1, 0.0056);
+          // fine sub-veins between the major ones
+          addSideVein(0.26, 0.40, +1, 0.0035, true);
+          addSideVein(0.26, 0.40, -1, 0.0035, true);
+          addSideVein(0.48, 0.62, +1, 0.0030, true);
+          addSideVein(0.48, 0.62, -1, 0.0030, true);
+        }
       }
       // Tiny dewdrops near the base of the leaf for a fresh look
       if (withDew) {
@@ -471,7 +482,7 @@
       f3_t: "Weather-aware watering", f3_d: "Forecast integration pauses irrigation when rain is coming.",
       f4_t: "Critical humidity alerts", f4_d: "Get notified when moisture levels need your attention.",
       f5_t: "Water usage history", f5_d: "Daily, weekly, and monthly consumption, all in one place.",
-      f6_t: "Activity summaries", f6_d: "Review general irrigation activity and recent usage patterns in a simple view.",
+      f6_t: "Great for crops", f6_d: "Tuned for vegetable patches, fruit trees, and edible gardens, not just ornamentals.",
       f7_t: "Web & mobile access", f7_d: "Use AquaSave from your phone, tablet, or computer, synced everywhere.",
       f8_t: "Guided setup", f8_d: "Step-by-step pairing and configuration, ready in minutes.",
       about_eyebrow: "About us", about_title: "A team behind every drop.", about_lead: "EcoDrop builds technology for smarter water use. AquaSave is our first product, a connected device and app for smarter irrigation.",
@@ -517,26 +528,156 @@
       form_name: "Name", form_email: "Email", form_subject: "Subject", form_subject_ph: "How can we help?",
       form_msg: "Message", form_msg_ph: "Tell us a bit about your garden or your question…", form_send: "Send message",
       form_thx_t: "Thanks for reaching out!", form_thx_p: "We'll get back to you within a couple of business days.",
-      cta_h1: "Start watering smarter", cta_h2: "with AquaSave.",
+      cta_h1: "Start watering smarter,", cta_h2: "your plants will thank you.",
       cta_lead: "Set up the smart device, open the app, and let your garden tell you what it needs.",
       cta_get_final: "Get started with AquaSave",
       foot_slogan: "Smarter irrigation, one drop at a time.", foot_by: "A product by",
       foot_explore: "Explore", foot_help: "Help", foot_legal: "Legal",
       foot_help_center: "Help Center", foot_faq: "FAQ", foot_contact_us: "Contact",
-      foot_terms: "Terms & Conditions", foot_privacy: "Privacy Policy",
-      terms_title: "Terms & Conditions",
-      terms_h1: "Use of the AquaSave website and app",
-      terms_p1: "By using the AquaSave website or app, you agree to use the service in a responsible way and only for purposes related to monitoring and controlling your own irrigation setup.",
-      terms_h2: "Informational purpose",
-      terms_p2: "The information shown in AquaSave is intended to support your irrigation decisions. EcoDrop is not responsible for plant outcomes derived from those decisions.",
-      terms_h3: "Product availability",
-      terms_p3: "AquaSave is in active development. EcoDrop does not guarantee final availability dates or specific feature sets while the product evolves.",
-      terms_h4: "Contact", terms_p4: "Questions about these terms? Reach out through the contact form on this page.",
-      priv_title: "Privacy Policy",
-      priv_h1: "What we collect", priv_p1: "We collect the basic information you submit through the contact form: name, email, and message.",
-      priv_h2: "How we use it", priv_p2: "We use that information only to reply to your inquiry and follow up if needed. Nothing more.",
-      priv_h3: "No sale of personal data", priv_p3: "EcoDrop does not sell, rent, or share your personal data with third parties for marketing.",
-      priv_h4: "Your privacy", priv_p4: "We're committed to handling your information carefully and only for the purpose you shared it for."
+      foot_terms: "Terms & Conditions", foot_privacy: "Privacy Policy", foot_cookies: "Cookies", foot_legal_index: "Legal overview",
+      foot_copy: "© 2026 EcoDrop · AquaSave · All rights reserved.",
+      contact_email_t: "Email us", contact_email_v: "hello@ecodrop.io",
+      contact_hours_t: "Reply window", contact_hours_v: "Within 1–2 business days",
+      contact_team_t: "Made by EcoDrop", contact_team_v: "A small team that cares about every drop.",
+      form_eyebrow: "Send a message", form_pill: "Reply within 1–2 business days",
+      contact_perk1: "No bots, a human reads each message",
+      contact_perk2: "Replies inside 1–2 business days",
+      contact_perk3: "Your info stays with our small team",
+      form_privacy_note: "By sending, you accept our privacy policy.",
+      cta_or: "or download the app",
+      store_apple_top: "Download on the", store_google_top: "Get it on",
+      help_search_ph: "Search topics, errors, how-to...",
+      help_popular: "Popular:", help_pop1: "smart irrigation", help_pop2: "pair device", help_pop3: "password reset",
+      help_cat_eyebrow: "Browse by category", help_cat_title: "Find the right answers, fast.",
+      help_open: "Open topic",
+      help_strip1_t: "Read the FAQ", help_strip1_p: "Quick answers to the most common questions, organized by category.", help_strip1_l: "Open FAQ",
+      help_strip2_t: "Try the in-app guide", help_strip2_p: "Step-by-step tour for new accounts, available from the help menu of the app.", help_strip2_l: "Get the app",
+      faq_search_ph: "Search a question...",
+      faq_q10: "Do you offer refunds?", faq_a10: "If you are not satisfied within the first 14 days of a paid plan, contact us and we'll help process a refund. After that we'll happily prorate cancellations until the end of the period.",
+      faq_q11: "Can I share my account with family?", faq_a11: "Yes. From your settings you can invite household members so everyone can monitor and control irrigation, with their own login.",
+      faq_q12: "How do I delete my account?", faq_a12: "From your account settings, choose Delete account. We'll send a confirmation email and wipe your data after a short grace period.",
+      faq_q13: "Can I water manually?", faq_a13: "Always. Tap the manual cycle button in the app for an immediate run, set a custom duration, or pause automation while you tend the garden yourself.",
+      faq_q14: "Does it really save water?", faq_a14: "Yes. By only running cycles when the soil really needs them and skipping them when rain is forecast, most users see a clear drop in their water usage from the first month.",
+      faq_q15: "Will firmware update on its own?", faq_a15: "Yes. Devices update during quiet hours, while the system is idle. Each update includes release notes you can review from the app.",
+      faq_q16: "Can I change plans later?", faq_a16: "Anytime. Upgrade and the change applies right away; downgrade and it kicks in at the next renewal so you keep what you paid for.",
+      faq_q17: "Is the data secure?", faq_a17: "Yes. Connections between the device, the app, and our servers are encrypted, and your sensor data is never sold or used for advertising.",
+      faq_empty: "No questions match your search. Try different keywords or contact us.",
+      legal_eyebrow: "Legal", legal_title: "Clear rules, no surprises.",
+      legal_lead: "Everything you need to know about how AquaSave is used, how we treat your data, and the rights you have. Plain language, no surprises.",
+      legal_updated: "Last updated 9 May 2026", legal_reading: "Around 12 min read",
+      legal_index: "On this page",
+      legal_help_t: "Need a hand?", legal_help_p: "If anything here is unclear, our team is happy to walk you through it in plain words.",
+      legal_help_btn: "Contact us",
+      legal_s1_t: "Overview",
+      legal_s1_p1: "This page brings together the legal information that applies to the AquaSave website, app, and connected device. We try to keep the language clear: where the law forces specific phrasing, we add a short summary in plain words next to it.",
+      legal_s1_p2: "By using AquaSave you accept the terms below. If you do not agree with any part of them, please stop using the service. These terms cover both visitors of this website and people who pair the device with their account.",
+      legal_s1_c1_t: "Plain language first", legal_s1_c1_p: "We write for humans. Legalese only when it is strictly required.",
+      legal_s1_c2_t: "Yours to keep", legal_s1_c2_p: "You can export a PDF of these terms at any time from the contact form.",
+      legal_s1_c3_t: "Updated when needed", legal_s1_c3_p: "We notify users of significant changes via email or inside the app.",
+      legal_s2_t: "Terms & Conditions",
+      legal_s2_p1: "These terms govern your relationship with EcoDrop, the company that builds and operates AquaSave. They describe what you can expect from us, what we expect from you, and how we handle situations where things do not go as planned.",
+      legal_s2_h1: "Eligibility",
+      legal_s2_p2: "You must be at least 16 years old, or the minimum digital-consent age in your country, to create an account. If you use AquaSave on behalf of a household or organization, you confirm you are authorized to accept these terms for them.",
+      legal_s2_h2: "Account responsibility",
+      legal_s2_p3: "You are responsible for keeping your credentials safe and for any activity that happens through your account. Tell us as soon as possible if you suspect unauthorized access. We may suspend sessions if we detect unusual behavior.",
+      legal_s2_h3: "Service availability",
+      legal_s2_p4: "AquaSave is delivered on a best-effort basis. While we work hard to keep the service running, brief outages may happen for maintenance, third-party provider issues, or events outside our control. Critical alerts may be delayed during these moments, so always treat them as an aid, not a hard guarantee.",
+      legal_s2_h4: "Subscription & cancellation",
+      legal_s2_p5: "If your plan is paid, charges follow the cycle you selected. You can cancel at any time from your account; access remains active until the end of the paid period and there are no early-exit penalties.",
+      legal_s3_t: "Acceptable use",
+      legal_s3_p1: "AquaSave is built to support irrigation for personal gardens, small farms, and similar setups. We ask that you use it responsibly and avoid behaviors that put other people, the service, or shared infrastructure at risk.",
+      legal_s3_l1: "Do not attempt to disrupt the service, reverse engineer the firmware, or extract data from accounts that are not yours.",
+      legal_s3_l2: "Do not use the device or the API to control irrigation systems you are not authorized to operate.",
+      legal_s3_l3: "Do not upload content that is unlawful, harassing, or that infringes someone else's rights.",
+      legal_s3_l4: "Do not use AquaSave to circumvent local water-use restrictions or regulations.",
+      legal_s3_p2: "If we believe your usage breaks these rules, we may pause access temporarily while we look into it. We will reach out so you can clarify and recover access whenever possible.",
+      legal_s4_t: "Privacy Policy",
+      legal_s4_p1: "Our privacy approach is simple: collect the minimum required to run the service, keep it safe, and never sell it. This section describes the data we handle and why.",
+      legal_s4_h1: "What we collect",
+      legal_s4_l1: "<strong>Account data</strong>: name, email, language preference, and the country you use the service from.",
+      legal_s4_l2: "<strong>Device data</strong>: device identifier, firmware version, and connection status.",
+      legal_s4_l3: "<strong>Sensor readings</strong>: soil moisture, soil temperature, ambient humidity, and watering events from your devices.",
+      legal_s4_l4: "<strong>Support data</strong>: messages and attachments you send through the contact form.",
+      legal_s4_l5: "<strong>Technical data</strong>: limited diagnostics (browser, OS, error logs) used to keep the service stable.",
+      legal_s4_h2: "Why we use it",
+      legal_s4_p2: "We use this data to operate the service, send the alerts you opted into, improve irrigation logic, prevent fraud, and meet legal obligations. We never use sensor data to build advertising profiles.",
+      legal_s4_h3: "How long we keep it",
+      legal_s4_p3: "Account data lives as long as your account is active and for a short grace period afterwards. Sensor data is kept in detail for the most recent months and aggregated for longer-term reports. Support tickets are kept for the time strictly needed to handle them.",
+      legal_s5_t: "Your data & rights",
+      legal_s5_p1: "Depending on where you live, you may have the right to access, correct, export, or delete your personal data. AquaSave honors these rights regardless of jurisdiction; we believe they are simply good practice.",
+      legal_s5_l1: "<strong>Access &amp; export</strong>: download a copy of your data in a portable format from your account settings.",
+      legal_s5_l2: "<strong>Correction</strong>: update incorrect details directly in the app or through the contact form.",
+      legal_s5_l3: "<strong>Deletion</strong>: delete your account and the data associated with it, except where law requires us to keep records.",
+      legal_s5_l4: "<strong>Object &amp; restrict</strong>: ask us to stop or limit specific types of processing.",
+      legal_s5_l5: "<strong>Complaint</strong>: file a complaint with your local data protection authority if you think we are not handling things correctly.",
+      legal_s6_t: "Cookies",
+      legal_s6_p1: "AquaSave uses a minimal number of cookies and similar technologies. We try to keep this list as short as possible.",
+      legal_s6_th1: "Type", legal_s6_th2: "Purpose", legal_s6_th3: "Duration",
+      legal_s6_r1a: "Essential", legal_s6_r1b: "Keep you signed in and remember language preference.", legal_s6_r1c: "Session / 12 months",
+      legal_s6_r2a: "Functional", legal_s6_r2b: "Remember UI choices like theme or dashboard layout.", legal_s6_r2c: "12 months",
+      legal_s6_r3a: "Analytics (anonymous)", legal_s6_r3b: "Aggregate usage stats to improve the product. No personal profiling.", legal_s6_r3c: "24 months",
+      legal_s6_p2: "You can clear cookies from your browser settings at any time. Disabling essential cookies may sign you out and reset preferences.",
+      legal_s7_t: "Intellectual property",
+      legal_s7_p1: "The AquaSave name, logo, app design, copy, illustrations, and firmware belong to EcoDrop. You receive a personal, non-exclusive, non-transferable license to use the service for its intended purpose. You keep ownership of any data you generate, like sensor readings and watering history.",
+      legal_s7_p2: "If you publish screenshots or content from AquaSave, please credit EcoDrop and do not imply an endorsement that does not exist.",
+      legal_s8_t: "Disclaimer",
+      legal_s8_p1: "AquaSave is an aid for irrigation decisions, not a guarantee of plant outcomes. Sensor readings have small margins of error, weather forecasts can be wrong, and physical components can fail. Treat critical alerts as helpful prompts and check the system periodically.",
+      legal_s8_p2: "We provide the service \"as is\" without warranties of fitness for any specific purpose, to the extent permitted by law.",
+      legal_s9_t: "Limitation of liability",
+      legal_s9_p1: "To the maximum extent allowed by law, EcoDrop is not liable for indirect or consequential damages, lost profits, lost crops, or loss of data resulting from the use or inability to use AquaSave. Where law requires a minimum protection (for example, in consumer relationships), nothing here limits the rights you legally have.",
+      legal_s10_t: "Changes to these terms",
+      legal_s10_p1: "We may update these terms from time to time. When changes are significant we notify users in advance via email or inside the app and update the \"Last updated\" date at the top of this page. Continuing to use AquaSave after a change means you accept the new version.",
+      legal_s11_t: "Contact",
+      legal_s11_p1: "For anything related to these terms, privacy, or your data rights, reach out to us from the contact form. A real human reads every message.",
+      legal_s12_t: "Security & data protection",
+      legal_s12_p1: "Keeping your information safe is something we take seriously. AquaSave applies industry-standard practices to make sure your data stays where it belongs and only the right people can reach it.",
+      legal_s12_l1: "<strong>Encryption in transit</strong>: every connection between the device, the app, and our servers travels over TLS so it cannot be read on the wire.",
+      legal_s12_l2: "<strong>Encryption at rest</strong>: sensitive data, including credentials and personal details, is stored encrypted on our infrastructure.",
+      legal_s12_l3: "<strong>Least-privilege access</strong>: only the people who absolutely need to see specific data can do so, with access logs that we audit periodically.",
+      legal_s12_l4: "<strong>Backups &amp; recovery</strong>: regular backups protect against data loss, and we run recovery drills to make sure they actually work.",
+      legal_s12_l5: "<strong>Independent reviews</strong>: we welcome responsible disclosure of security issues and review our setup with external partners on a regular cadence.",
+      legal_s12_p2: "If you find what looks like a security issue, please reach out via the contact form so we can investigate and credit your finding when appropriate.",
+      legal_s13_t: "Children's privacy",
+      legal_s13_p1: "AquaSave is not designed for children. Accounts are intended for adults and adolescents at or above the digital-consent age that applies in their country (16 in many places, lower in some jurisdictions).",
+      legal_s13_p2: "If we learn that a younger person has created an account without proper consent, we will close the account and delete the associated personal data. Parents or guardians who believe a child has provided personal information without authorization can reach us via the contact form to request deletion.",
+      legal_s13_p3: "Of course, families regularly use AquaSave together, and that is encouraged. Children can watch the garden, learn about water care, and help schedule cycles, as long as they do so through an adult's account.",
+      legal_s14_t: "Third-party services",
+      legal_s14_p1: "To run AquaSave reliably we lean on a small set of trusted partners. These providers process specific pieces of data strictly to deliver their part of the service, under contracts that match the privacy commitments we make to you.",
+      legal_s14_l1: "<strong>Hosting &amp; infrastructure</strong>: cloud providers that store data and run the AquaSave back-end in secure data centers.",
+      legal_s14_l2: "<strong>Email delivery</strong>: services that help us send transactional emails like password resets and critical alerts.",
+      legal_s14_l3: "<strong>Payments</strong>: PCI-compliant processors handle paid plans, so we never see or store full card numbers.",
+      legal_s14_l4: "<strong>Weather data</strong>: meteorological providers feed the forecast integration that pauses irrigation when rain is on the way.",
+      legal_s14_l5: "<strong>Anonymous analytics</strong>: privacy-respecting analytics that help us understand product usage in aggregate, with no personal profiling.",
+      legal_s14_p2: "When data leaves the region you live in, we use the legal frameworks recognized by your jurisdiction (such as standard contractual clauses) so your data remains protected on the way and wherever it lands.",
+      legal_s15_t: "Beta &amp; experimental features",
+      legal_s15_p1: "From time to time we release features marked as beta or early access. These help us test new ideas with real users before rolling them out widely. They are useful but they are also in-progress, so a few caveats apply.",
+      legal_s15_l1: "Beta features may behave unexpectedly, change their interface, or be removed if we decide they don't work as intended.",
+      legal_s15_l2: "We may collect extra diagnostic information from beta users to understand how the feature performs. This is always anonymized as much as possible and described inside the app.",
+      legal_s15_l3: "If a paid plan includes beta features, we will not charge for them specifically until they leave beta status.",
+      legal_s15_p2: "Feedback is genuinely appreciated. If something feels off in a beta feature, tell us through the contact form so we can fix it before it ships to everyone.",
+      legal_s16_t: "Subscriptions, billing & refunds",
+      legal_s16_t_short: "Subscriptions & refunds",
+      legal_s16_p1: "If you use a paid plan, this section spells out how billing works in practice so there are no surprises when an invoice lands in your inbox.",
+      legal_s16_h1: "Billing cycle",
+      legal_s16_p2: "Subscriptions renew automatically at the end of each cycle (monthly or annual, whichever you chose) using the payment method on file. We send a reminder before annual renewals so the charge never feels unexpected.",
+      legal_s16_h2: "Cancellations",
+      legal_s16_p3: "You can cancel any time from your account. Access remains active until the end of the period already paid for, and we never apply early-exit fees. Your data stays available for export during a short grace window after cancellation.",
+      legal_s16_h3: "Refunds",
+      legal_s16_p4: "If a paid plan does not work for you within the first 14 days, contact us and we will help process a full refund. After that period we prorate cancellations to the day, where local consumer law allows.",
+      legal_s16_h4: "Failed payments",
+      legal_s16_p5: "If a charge fails we retry a few times across a couple of days, with email reminders. If we still cannot bill the account we move it to a free tier instead of cutting access abruptly, so you have time to fix the issue.",
+      legal_s17_t: "Communications & marketing",
+      legal_s17_t_short: "Communications",
+      legal_s17_p1: "We send three kinds of messages, and you can manage each one independently from your account settings:",
+      legal_s17_l1: "<strong>Service messages</strong>: critical alerts about your devices, billing receipts, security updates. These are necessary for the service to work and cannot be turned off without closing the account.",
+      legal_s17_l2: "<strong>Product updates</strong>: occasional emails about new features and meaningful changes. Useful but optional, opt out with one click.",
+      legal_s17_l3: "<strong>Newsletters &amp; tips</strong>: monthly content with seasonal tips for your garden and water-saving practices. Strictly opt-in.",
+      legal_s17_p2: "We do not sell, rent, or trade your email or phone number, and we do not include third-party advertising in our communications.",
+      legal_s18_t: "Governing law & disputes",
+      legal_s18_t_short: "Governing law",
+      legal_s18_p1: "These terms are governed by the laws of the country where EcoDrop is registered, without prejudice to mandatory consumer protections that apply where you live. Many of those local protections cannot be waived and will always take priority over anything written here.",
+      legal_s18_p2: "If a disagreement arises, our preferred path is a friendly conversation through the contact form. Most things we have ever heard about have been resolved that way without escalation.",
+      legal_s18_p3: "When that is not enough, you may pursue the matter through the competent courts of your place of residence (for consumers) or through alternative dispute resolution mechanisms recognized by the European Online Dispute Resolution platform when applicable."
     },
     es: {
       nav_benefits: "Beneficios", nav_how: "Cómo funciona", nav_features: "Funciones", nav_about: "Nosotros", nav_help: "Ayuda", nav_faq: "FAQ", nav_contact: "Contáctanos", nav_cta: "Empezar",
@@ -561,7 +702,7 @@
       f3_t: "Riego con clima", f3_d: "La integración con el pronóstico pausa el riego cuando va a llover.",
       f4_t: "Alertas de humedad crítica", f4_d: "Recibe avisos cuando la humedad necesita tu atención.",
       f5_t: "Historial de consumo", f5_d: "Consumo diario, semanal y mensual, todo en un solo lugar.",
-      f6_t: "Resumen de actividad", f6_d: "Consulta la actividad general del riego y los patrones recientes de uso en una vista simple.",
+      f6_t: "Ideal para cultivos", f6_d: "Pensado para huertos, frutales y plantas que dan frutos y vegetales, no solo ornamentales.",
       f7_t: "Acceso web y móvil", f7_d: "Usa AquaSave desde tu móvil, tableta o computadora, sincronizado en todo.",
       f8_t: "Configuración guiada", f8_d: "Vinculación y configuración paso a paso, listo en minutos.",
       about_eyebrow: "Nosotros", about_title: "Un equipo detrás de cada gota.", about_lead: "EcoDrop crea tecnología para un uso más inteligente del agua. AquaSave es nuestro primer producto, un dispositivo conectado y una app para regar mejor.",
@@ -607,26 +748,156 @@
       form_name: "Nombre", form_email: "Email", form_subject: "Asunto", form_subject_ph: "¿En qué te ayudamos?",
       form_msg: "Mensaje", form_msg_ph: "Cuéntanos un poco sobre tu huerto o tu pregunta…", form_send: "Enviar mensaje",
       form_thx_t: "¡Gracias por escribirnos!", form_thx_p: "Te responderemos en un par de días hábiles.",
-      cta_h1: "Empieza a regar con cabeza", cta_h2: "con AquaSave.",
+      cta_h1: "Empieza a regar con cabeza,", cta_h2: "tus plantas te lo agradecerán.",
       cta_lead: "Instala el dispositivo, abre la app y deja que tu huerto te diga lo que necesita.",
       cta_get_final: "Empezar con AquaSave",
       foot_slogan: "Riego más inteligente, gota a gota.", foot_by: "Un producto de",
       foot_explore: "Explorar", foot_help: "Ayuda", foot_legal: "Legal",
       foot_help_center: "Centro de ayuda", foot_faq: "FAQ", foot_contact_us: "Contacto",
-      foot_terms: "Términos y condiciones", foot_privacy: "Política de privacidad",
-      terms_title: "Términos y condiciones",
-      terms_h1: "Uso del sitio y la app de AquaSave",
-      terms_p1: "Al usar el sitio o la app de AquaSave aceptas usar el servicio de forma responsable y solo con fines relacionados con el monitoreo y control de tu propio sistema de riego.",
-      terms_h2: "Propósito informativo",
-      terms_p2: "La información mostrada en AquaSave busca apoyar tus decisiones de riego. EcoDrop no se responsabiliza por los resultados de las plantas derivados de esas decisiones.",
-      terms_h3: "Disponibilidad del producto",
-      terms_p3: "AquaSave está en desarrollo activo. EcoDrop no garantiza fechas de disponibilidad final ni un conjunto específico de funciones mientras el producto evoluciona.",
-      terms_h4: "Contacto", terms_p4: "¿Dudas sobre estos términos? Escríbenos desde el formulario de contacto de esta página.",
-      priv_title: "Política de privacidad",
-      priv_h1: "Qué recopilamos", priv_p1: "Recopilamos la información básica que envías por el formulario de contacto: nombre, email y mensaje.",
-      priv_h2: "Cómo la usamos", priv_p2: "Usamos esa información solo para responder tu consulta y dar seguimiento si es necesario. Nada más.",
-      priv_h3: "No vendemos datos personales", priv_p3: "EcoDrop no vende, alquila ni comparte tus datos con terceros con fines de marketing.",
-      priv_h4: "Tu privacidad", priv_p4: "Nos comprometemos a tratar tu información con cuidado y solo con el propósito por el que la compartiste."
+      foot_terms: "Términos y condiciones", foot_privacy: "Política de privacidad", foot_cookies: "Cookies", foot_legal_index: "Resumen legal",
+      foot_copy: "© 2026 EcoDrop · AquaSave · Todos los derechos reservados.",
+      contact_email_t: "Escríbenos", contact_email_v: "hola@ecodrop.io",
+      contact_hours_t: "Tiempo de respuesta", contact_hours_v: "1 a 2 días hábiles",
+      contact_team_t: "Hecho por EcoDrop", contact_team_v: "Un equipo pequeño que cuida cada gota.",
+      form_eyebrow: "Envía un mensaje", form_pill: "Respondemos en 1–2 días hábiles",
+      contact_perk1: "Sin bots, una persona lee cada mensaje",
+      contact_perk2: "Respondemos en 1–2 días hábiles",
+      contact_perk3: "Tu información se queda con nuestro equipo",
+      form_privacy_note: "Al enviar, aceptas nuestra política de privacidad.",
+      cta_or: "o descarga la app",
+      store_apple_top: "Disponible en", store_google_top: "Consíguelo en",
+      help_search_ph: "Busca temas, errores, cómo hacer...",
+      help_popular: "Populares:", help_pop1: "riego inteligente", help_pop2: "vincular dispositivo", help_pop3: "restablecer contraseña",
+      help_cat_eyebrow: "Explorar por categoría", help_cat_title: "Encuentra las respuestas correctas, rápido.",
+      help_open: "Abrir tema",
+      help_strip1_t: "Lee el FAQ", help_strip1_p: "Respuestas rápidas a las preguntas más comunes, organizadas por categoría.", help_strip1_l: "Abrir FAQ",
+      help_strip2_t: "Prueba la guía en la app", help_strip2_p: "Recorrido paso a paso para nuevas cuentas, disponible desde el menú de ayuda de la app.", help_strip2_l: "Conseguir la app",
+      faq_search_ph: "Busca una pregunta...",
+      faq_q10: "¿Ofrecen reembolsos?", faq_a10: "Si no quedas satisfecho dentro de los primeros 14 días de un plan pagado, escríbenos y procesaremos un reembolso. Después prorrateamos las cancelaciones hasta el final del periodo.",
+      faq_q11: "¿Puedo compartir mi cuenta con la familia?", faq_a11: "Sí. Desde la configuración puedes invitar a miembros del hogar para que monitoreen y controlen el riego, cada uno con su propio acceso.",
+      faq_q12: "¿Cómo elimino mi cuenta?", faq_a12: "Desde la configuración de tu cuenta, elige Eliminar cuenta. Te enviaremos un correo de confirmación y borraremos tus datos tras un breve periodo de gracia.",
+      faq_q13: "¿Puedo regar manualmente?", faq_a13: "Siempre. Toca el botón de ciclo manual en la app para una activación inmediata, define una duración personalizada o pausa la automatización mientras atiendes el huerto a mano.",
+      faq_q14: "¿De verdad ahorra agua?", faq_a14: "Sí. Al activar ciclos solo cuando el suelo lo necesita y omitirlos si llueve, la mayoría de usuarios ven una reducción clara en su consumo desde el primer mes.",
+      faq_q15: "¿El firmware se actualiza solo?", faq_a15: "Sí. Los dispositivos se actualizan en horas tranquilas, mientras el sistema está inactivo. Cada actualización incluye notas que puedes revisar desde la app.",
+      faq_q16: "¿Puedo cambiar de plan después?", faq_a16: "Cuando quieras. Si subes de plan el cambio aplica al instante; si bajas, se aplica en la siguiente renovación para que aproveches lo que ya pagaste.",
+      faq_q17: "¿Los datos están seguros?", faq_a17: "Sí. Las conexiones entre el dispositivo, la app y nuestros servidores están cifradas, y los datos de tus sensores nunca se venden ni se usan para publicidad.",
+      faq_empty: "Ninguna pregunta coincide con tu búsqueda. Prueba otras palabras o contáctanos.",
+      legal_eyebrow: "Legal", legal_title: "Reglas claras, sin sorpresas.",
+      legal_lead: "Todo lo que necesitas saber sobre cómo se usa AquaSave, cómo tratamos tus datos y los derechos que tienes. Lenguaje claro, sin sorpresas.",
+      legal_updated: "Actualizado el 9 de mayo de 2026", legal_reading: "Lectura de unos 12 min",
+      legal_index: "En esta página",
+      legal_help_t: "¿Necesitas ayuda?", legal_help_p: "Si algo aquí no queda claro, nuestro equipo te lo explica con palabras sencillas.",
+      legal_help_btn: "Contáctanos",
+      legal_s1_t: "Resumen",
+      legal_s1_p1: "Esta página reúne la información legal que aplica al sitio web, la app y el dispositivo conectado de AquaSave. Procuramos un lenguaje claro: cuando la ley exige una redacción específica, añadimos al lado un resumen sencillo.",
+      legal_s1_p2: "Al usar AquaSave aceptas los términos siguientes. Si no estás de acuerdo con alguna parte, deja de usar el servicio. Estos términos cubren tanto a visitantes del sitio como a personas que vinculan el dispositivo a su cuenta.",
+      legal_s1_c1_t: "Lenguaje claro", legal_s1_c1_p: "Escribimos para personas. Solo usamos jerga legal cuando es estrictamente necesario.",
+      legal_s1_c2_t: "Tuyo cuando lo quieras", legal_s1_c2_p: "Puedes pedir un PDF de estos términos en cualquier momento desde el formulario de contacto.",
+      legal_s1_c3_t: "Actualizado cuando hace falta", legal_s1_c3_p: "Avisamos a los usuarios de cambios importantes por correo o dentro de la app.",
+      legal_s2_t: "Términos y condiciones",
+      legal_s2_p1: "Estos términos rigen tu relación con EcoDrop, la empresa que construye y opera AquaSave. Describen lo que puedes esperar de nosotros, lo que esperamos de ti y cómo gestionamos las situaciones que se salen del guion.",
+      legal_s2_h1: "Quién puede usarlo",
+      legal_s2_p2: "Debes tener al menos 16 años, o la edad mínima de consentimiento digital de tu país, para crear una cuenta. Si usas AquaSave en nombre de un hogar u organización, confirmas que tienes autorización para aceptar estos términos por ellos.",
+      legal_s2_h2: "Responsabilidad de la cuenta",
+      legal_s2_p3: "Eres responsable de mantener tus credenciales a salvo y de toda la actividad que ocurra a través de tu cuenta. Avísanos cuanto antes si sospechas un acceso no autorizado. Podemos suspender sesiones si detectamos comportamientos inusuales.",
+      legal_s2_h3: "Disponibilidad del servicio",
+      legal_s2_p4: "AquaSave se ofrece bajo el principio de mejor esfuerzo. Aunque trabajamos para mantenerlo activo, pueden ocurrir cortes breves por mantenimiento, problemas de proveedores o eventos fuera de nuestro control. En esos momentos las alertas críticas pueden retrasarse, así que tómalas siempre como una ayuda y no como una garantía absoluta.",
+      legal_s2_h4: "Suscripción y cancelación",
+      legal_s2_p5: "Si tu plan es de pago, los cobros siguen el ciclo que elegiste. Puedes cancelar cuando quieras desde tu cuenta; el acceso continúa hasta el final del periodo pagado y no aplicamos penalizaciones por salida anticipada.",
+      legal_s3_t: "Uso aceptable",
+      legal_s3_p1: "AquaSave está pensado para apoyar el riego de jardines personales, pequeñas parcelas y casos similares. Te pedimos que lo uses de forma responsable y evites comportamientos que pongan en riesgo a otras personas, al servicio o a la infraestructura compartida.",
+      legal_s3_l1: "No intentes interrumpir el servicio, hacer ingeniería inversa del firmware ni extraer datos de cuentas que no son tuyas.",
+      legal_s3_l2: "No uses el dispositivo o la API para controlar sistemas de riego sobre los que no tienes autorización.",
+      legal_s3_l3: "No subas contenido ilegal, ofensivo o que infrinja derechos de terceros.",
+      legal_s3_l4: "No uses AquaSave para saltarte restricciones o regulaciones locales sobre el uso del agua.",
+      legal_s3_p2: "Si creemos que un uso rompe estas reglas podemos pausar el acceso temporalmente mientras lo revisamos. Te contactaremos para que puedas aclararlo y recuperar el acceso siempre que sea posible.",
+      legal_s4_t: "Política de privacidad",
+      legal_s4_p1: "Nuestro enfoque es simple: recolectar el mínimo necesario para operar el servicio, mantenerlo seguro y nunca venderlo. Esta sección describe los datos que manejamos y por qué.",
+      legal_s4_h1: "Qué recopilamos",
+      legal_s4_l1: "<strong>Datos de cuenta</strong>: nombre, correo, idioma preferido y país desde el que usas el servicio.",
+      legal_s4_l2: "<strong>Datos del dispositivo</strong>: identificador del equipo, versión del firmware y estado de conexión.",
+      legal_s4_l3: "<strong>Lecturas de sensores</strong>: humedad del suelo, temperatura del suelo, humedad ambiente y eventos de riego.",
+      legal_s4_l4: "<strong>Datos de soporte</strong>: mensajes y adjuntos que envías por el formulario de contacto.",
+      legal_s4_l5: "<strong>Datos técnicos</strong>: diagnósticos limitados (navegador, SO, registros de errores) usados para mantener el servicio estable.",
+      legal_s4_h2: "Para qué los usamos",
+      legal_s4_p2: "Usamos estos datos para operar el servicio, enviar las alertas que activaste, mejorar la lógica de riego, prevenir fraudes y cumplir obligaciones legales. Nunca usamos los datos de sensores para construir perfiles publicitarios.",
+      legal_s4_h3: "Cuánto tiempo los guardamos",
+      legal_s4_p3: "Los datos de cuenta viven mientras tu cuenta está activa más un breve periodo de gracia. Las lecturas detalladas de sensores se conservan los meses recientes y se agregan para reportes a largo plazo. Los tickets de soporte se guardan el tiempo estrictamente necesario.",
+      legal_s5_t: "Tus datos y derechos",
+      legal_s5_p1: "Según donde vivas, podrías tener derecho a acceder, corregir, exportar o eliminar tus datos personales. AquaSave respeta estos derechos sin importar la jurisdicción; los consideramos buenas prácticas básicas.",
+      legal_s5_l1: "<strong>Acceso y exportación</strong>: descarga una copia de tus datos en un formato portable desde la configuración.",
+      legal_s5_l2: "<strong>Corrección</strong>: actualiza información incorrecta directamente en la app o por el formulario.",
+      legal_s5_l3: "<strong>Eliminación</strong>: elimina tu cuenta y los datos asociados, salvo cuando la ley exija conservarlos.",
+      legal_s5_l4: "<strong>Oposición y restricción</strong>: pídenos detener o limitar tipos específicos de tratamiento.",
+      legal_s5_l5: "<strong>Reclamación</strong>: puedes presentar una queja ante tu autoridad local de protección de datos si crees que algo no se está manejando bien.",
+      legal_s6_t: "Cookies",
+      legal_s6_p1: "AquaSave usa una cantidad mínima de cookies y tecnologías similares. Procuramos que la lista sea lo más corta posible.",
+      legal_s6_th1: "Tipo", legal_s6_th2: "Propósito", legal_s6_th3: "Duración",
+      legal_s6_r1a: "Esenciales", legal_s6_r1b: "Te mantienen iniciado y recuerdan tu idioma.", legal_s6_r1c: "Sesión / 12 meses",
+      legal_s6_r2a: "Funcionales", legal_s6_r2b: "Recuerdan elecciones de UI como tema o disposición del dashboard.", legal_s6_r2c: "12 meses",
+      legal_s6_r3a: "Analíticas (anónimas)", legal_s6_r3b: "Estadísticas agregadas para mejorar el producto. Sin perfilado personal.", legal_s6_r3c: "24 meses",
+      legal_s6_p2: "Puedes borrar las cookies desde tu navegador cuando quieras. Desactivar las esenciales puede cerrar tu sesión y reiniciar preferencias.",
+      legal_s7_t: "Propiedad intelectual",
+      legal_s7_p1: "El nombre AquaSave, el logo, el diseño de la app, los textos, ilustraciones y firmware pertenecen a EcoDrop. Recibes una licencia personal, no exclusiva e intransferible para usar el servicio según su propósito previsto. Tú conservas la propiedad de los datos que generes, como lecturas e historial de riego.",
+      legal_s7_p2: "Si publicas capturas o contenido de AquaSave, te pedimos acreditar a EcoDrop y no insinuar respaldos que no existen.",
+      legal_s8_t: "Aviso",
+      legal_s8_p1: "AquaSave es una ayuda para tomar decisiones de riego, no una garantía de resultado para tus plantas. Las lecturas de sensores tienen pequeños márgenes de error, los pronósticos pueden equivocarse y los componentes físicos pueden fallar. Toma las alertas críticas como avisos útiles y revisa el sistema con regularidad.",
+      legal_s8_p2: "Ofrecemos el servicio \"tal como está\", sin garantías de adecuación a un fin específico, hasta donde lo permita la ley.",
+      legal_s9_t: "Limitación de responsabilidad",
+      legal_s9_p1: "Hasta donde la ley lo permita, EcoDrop no se hace responsable de daños indirectos o consecuentes, lucro cesante, pérdida de cosechas o pérdida de datos derivados del uso o la imposibilidad de uso de AquaSave. Cuando la ley exija una protección mínima (por ejemplo, en relaciones con consumidores), nada de aquí limita los derechos que legalmente tienes.",
+      legal_s10_t: "Cambios en estos términos",
+      legal_s10_p1: "Podemos actualizar estos términos cada cierto tiempo. Cuando los cambios sean significativos avisamos con antelación por correo o dentro de la app y actualizamos la fecha de la parte superior. Seguir usando AquaSave después de un cambio significa que aceptas la nueva versión.",
+      legal_s11_t: "Contacto",
+      legal_s11_p1: "Para cualquier asunto sobre estos términos, privacidad o tus derechos sobre tus datos, escríbenos desde el formulario de contacto. Una persona real lee cada mensaje.",
+      legal_s12_t: "Seguridad y protección de datos",
+      legal_s12_p1: "Mantener tu información segura es algo que nos tomamos en serio. AquaSave aplica buenas prácticas estándar de la industria para que tus datos se queden donde corresponde y solo las personas indicadas puedan acceder a ellos.",
+      legal_s12_l1: "<strong>Cifrado en tránsito</strong>: cada conexión entre el dispositivo, la app y nuestros servidores viaja por TLS para que no pueda leerse en el camino.",
+      legal_s12_l2: "<strong>Cifrado en reposo</strong>: los datos sensibles, incluyendo credenciales y datos personales, se almacenan cifrados en nuestra infraestructura.",
+      legal_s12_l3: "<strong>Acceso de mínimo privilegio</strong>: solo las personas que realmente necesitan ver datos específicos pueden hacerlo, con registros de acceso que auditamos periódicamente.",
+      legal_s12_l4: "<strong>Copias y recuperación</strong>: hacemos copias de seguridad regulares y simulaciones de recuperación para asegurarnos de que funcionan.",
+      legal_s12_l5: "<strong>Revisiones independientes</strong>: aceptamos divulgación responsable de problemas de seguridad y revisamos nuestro setup con socios externos con regularidad.",
+      legal_s12_p2: "Si encuentras algo que parezca un problema de seguridad, escríbenos por el formulario de contacto para poder investigarlo y darte el crédito que corresponda.",
+      legal_s13_t: "Privacidad de menores",
+      legal_s13_p1: "AquaSave no está diseñado para niños. Las cuentas son para adultos y adolescentes que cumplan la edad mínima de consentimiento digital en su país (16 en muchos lugares, menor en algunas jurisdicciones).",
+      legal_s13_p2: "Si descubrimos que un menor ha creado una cuenta sin el consentimiento adecuado, cerraremos la cuenta y eliminaremos los datos personales asociados. Padres o tutores que crean que un niño ha compartido información sin autorización pueden escribirnos por el formulario para pedir su eliminación.",
+      legal_s13_p3: "Por supuesto, las familias usan AquaSave juntas a menudo y eso nos encanta. Los niños pueden mirar el huerto, aprender sobre cuidado del agua y ayudar a programar ciclos, siempre que lo hagan a través de la cuenta de un adulto.",
+      legal_s14_t: "Servicios de terceros",
+      legal_s14_p1: "Para que AquaSave funcione bien nos apoyamos en un pequeño grupo de socios de confianza. Estos proveedores procesan datos específicos solo para entregar su parte del servicio, bajo contratos que respetan los compromisos de privacidad que te hacemos.",
+      legal_s14_l1: "<strong>Hosting e infraestructura</strong>: proveedores cloud que almacenan datos y ejecutan el back-end de AquaSave en centros de datos seguros.",
+      legal_s14_l2: "<strong>Envío de correos</strong>: servicios que nos ayudan a enviar correos transaccionales como restablecimiento de contraseña y alertas críticas.",
+      legal_s14_l3: "<strong>Pagos</strong>: procesadores con cumplimiento PCI gestionan los planes pagados, así nunca vemos ni guardamos los números completos de tarjeta.",
+      legal_s14_l4: "<strong>Datos meteorológicos</strong>: proveedores de meteorología alimentan la integración con el pronóstico que pausa el riego cuando va a llover.",
+      legal_s14_l5: "<strong>Analíticas anónimas</strong>: analítica respetuosa con la privacidad para entender el uso del producto en agregado, sin perfilado personal.",
+      legal_s14_p2: "Cuando los datos salen de la región en la que vives, usamos los marcos legales reconocidos en tu jurisdicción (como las cláusulas contractuales tipo) para que sigan protegidos en el camino y donde aterricen.",
+      legal_s15_t: "Funciones beta y experimentales",
+      legal_s15_p1: "De vez en cuando lanzamos funciones marcadas como beta o de acceso anticipado. Nos ayudan a probar ideas nuevas con usuarios reales antes de un lanzamiento amplio. Son útiles pero también están en construcción, así que aplican algunas advertencias.",
+      legal_s15_l1: "Las funciones beta pueden comportarse de forma inesperada, cambiar su interfaz o ser retiradas si decidimos que no funcionan como esperábamos.",
+      legal_s15_l2: "Podemos recopilar diagnósticos extra de los usuarios beta para entender cómo se desempeña la función. Siempre se anonimiza tanto como sea posible y se describe dentro de la app.",
+      legal_s15_l3: "Si un plan de pago incluye funciones beta, no cobraremos por ellas específicamente hasta que dejen el estado beta.",
+      legal_s15_p2: "Tu feedback nos importa. Si algo se siente raro en una función beta, cuéntanoslo por el formulario para poder arreglarlo antes de que llegue a todos.",
+      legal_s16_t: "Suscripciones, facturación y reembolsos",
+      legal_s16_t_short: "Suscripciones y reembolsos",
+      legal_s16_p1: "Si usas un plan de pago, esta sección explica cómo funciona la facturación en la práctica, para que no haya sorpresas cuando llegue una factura.",
+      legal_s16_h1: "Ciclo de facturación",
+      legal_s16_p2: "Las suscripciones se renuevan automáticamente al final de cada ciclo (mensual o anual, el que hayas elegido) con el método de pago registrado. Enviamos un recordatorio antes de las renovaciones anuales para que el cargo nunca se sienta inesperado.",
+      legal_s16_h2: "Cancelaciones",
+      legal_s16_p3: "Puedes cancelar cuando quieras desde tu cuenta. El acceso continúa hasta el final del periodo ya pagado y nunca aplicamos penalizaciones por salida anticipada. Tus datos quedan disponibles para exportar durante una breve ventana tras cancelar.",
+      legal_s16_h3: "Reembolsos",
+      legal_s16_p4: "Si un plan de pago no te funciona en los primeros 14 días, escríbenos y te ayudaremos a procesar un reembolso completo. Después de ese plazo prorrateamos la cancelación al día, cuando la legislación local de consumo lo permite.",
+      legal_s16_h4: "Pagos fallidos",
+      legal_s16_p5: "Si un cargo falla, lo reintentamos varias veces en un par de días, con recordatorios por email. Si aun así no podemos cobrar, movemos la cuenta a un plan gratuito en lugar de cortar el acceso de golpe, para que tengas tiempo de resolverlo.",
+      legal_s17_t: "Comunicaciones y marketing",
+      legal_s17_t_short: "Comunicaciones",
+      legal_s17_p1: "Enviamos tres tipos de mensajes y puedes gestionar cada uno por separado desde la configuración de tu cuenta:",
+      legal_s17_l1: "<strong>Mensajes de servicio</strong>: alertas críticas sobre tus dispositivos, recibos de facturación, actualizaciones de seguridad. Son necesarios para que el servicio funcione y no se pueden desactivar sin cerrar la cuenta.",
+      legal_s17_l2: "<strong>Actualizaciones de producto</strong>: correos ocasionales sobre nuevas funciones y cambios relevantes. Útiles pero opcionales, te das de baja con un clic.",
+      legal_s17_l3: "<strong>Newsletter y consejos</strong>: contenido mensual con consejos de temporada para tu jardín y prácticas de ahorro de agua. Estrictamente opt-in.",
+      legal_s17_p2: "No vendemos, alquilamos ni intercambiamos tu correo o teléfono, y no incluimos publicidad de terceros en nuestras comunicaciones.",
+      legal_s18_t: "Ley aplicable y disputas",
+      legal_s18_t_short: "Ley aplicable",
+      legal_s18_p1: "Estos términos se rigen por las leyes del país donde EcoDrop está registrada, sin perjuicio de las protecciones obligatorias para consumidores que apliquen donde vives. Muchas de esas protecciones locales no pueden renunciarse y siempre prevalecen sobre lo escrito aquí.",
+      legal_s18_p2: "Si surge un desacuerdo, nuestra ruta preferida es una conversación amistosa a través del formulario de contacto. La gran mayoría de las cosas que hemos visto se resolvieron así sin escalada.",
+      legal_s18_p3: "Cuando eso no basta, puedes acudir a los tribunales competentes de tu lugar de residencia (como consumidor) o a mecanismos alternativos de resolución reconocidos por la plataforma europea de Resolución de Disputas en Línea cuando aplique."
     }
   };
 
@@ -634,7 +905,11 @@
     document.documentElement.lang = lang;
     document.querySelectorAll('[data-i18n]').forEach(el => {
       const key = el.getAttribute('data-i18n');
-      if (dict[lang] && dict[lang][key]) el.textContent = dict[lang][key];
+      if (dict[lang] && dict[lang][key] != null) {
+        const val = dict[lang][key];
+        if (typeof val === 'string' && val.indexOf('<') !== -1) el.innerHTML = val;
+        else el.textContent = val;
+      }
     });
     document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
       const key = el.getAttribute('data-i18n-placeholder');
@@ -806,28 +1081,76 @@
       btn.parentElement.classList.toggle('is-open');
     });
   });
+  let currentFaqFilter = 'all';
   const filterFaq = (cat) => {
+    currentFaqFilter = cat || 'all';
     document.querySelectorAll('#faqList .faq-item').forEach(it => {
-      it.classList.toggle('is-hidden', cat !== 'all' && it.dataset.cat !== cat);
+      it.classList.toggle('is-hidden-cat', currentFaqFilter !== 'all' && it.dataset.cat !== currentFaqFilter);
     });
     document.querySelectorAll('#faqFilters button').forEach(b => {
-      b.classList.toggle('is-active', b.dataset.filter === cat);
+      b.classList.toggle('is-active', b.dataset.filter === currentFaqFilter);
     });
+    applyFaqVisibility();
+  };
+  const applyFaqVisibility = () => {
+    const list = document.getElementById('faqList');
+    if (!list) return;
+    let visible = 0;
+    list.querySelectorAll('.faq-item').forEach(it => {
+      const hiddenByCat = it.classList.contains('is-hidden-cat');
+      const hiddenBySearch = it.classList.contains('is-hidden-search');
+      const hidden = hiddenByCat || hiddenBySearch;
+      it.classList.toggle('is-hidden', hidden);
+      if (!hidden) visible++;
+    });
+    const empty = document.getElementById('faqEmpty');
+    if (empty) empty.hidden = visible !== 0;
   };
   document.querySelectorAll('#faqFilters button').forEach(b => {
     b.addEventListener('click', () => filterFaq(b.dataset.filter));
   });
-  document.querySelectorAll('.help-card').forEach(c => {
+  // FAQ search
+  const faqSearch = document.getElementById('faqSearch');
+  if (faqSearch) {
+    faqSearch.addEventListener('input', () => {
+      const q = faqSearch.value.trim().toLowerCase();
+      document.querySelectorAll('#faqList .faq-item').forEach(it => {
+        const text = it.textContent.toLowerCase();
+        const hide = q.length > 1 && text.indexOf(q) === -1;
+        it.classList.toggle('is-hidden-search', hide);
+      });
+      applyFaqVisibility();
+    });
+  }
+  // Help search, filters help cards
+  const helpSearch = document.getElementById('helpSearch');
+  if (helpSearch) {
+    helpSearch.addEventListener('input', () => {
+      const q = helpSearch.value.trim().toLowerCase();
+      document.querySelectorAll('#helpGrid .help-card').forEach(c => {
+        const text = c.textContent.toLowerCase();
+        const hide = q.length > 1 && text.indexOf(q) === -1;
+        c.classList.toggle('is-hidden', hide);
+      });
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === '/' && document.activeElement !== helpSearch) {
+        e.preventDefault();
+        helpSearch.focus();
+      }
+    });
+  }
+  document.querySelectorAll('.help-card[data-help]').forEach(c => {
+    if (c.tagName === 'A') return; // already a link with proper href
     c.addEventListener('click', () => {
       const cat = c.dataset.help;
       const faqList = document.getElementById('faqList');
       if (faqList) {
         filterFaq(cat);
-        history.replaceState(null, '', `#faq-${cat}`);
         const faqSection = document.getElementById('faq');
         faqSection?.scrollIntoView({ behavior: 'smooth', block: 'start' });
       } else {
-        window.location.href = `faq.html#faq-${cat}`;
+        window.location.href = `faq.html#${cat}`;
       }
     });
   });
@@ -835,14 +1158,32 @@
     const faqList = document.getElementById('faqList');
     if (!faqList) return;
     const hash = window.location.hash.replace('#', '');
-    if (hash.startsWith('faq-')) {
-      filterFaq(hash.replace('faq-', ''));
-    } else {
-      filterFaq('all');
-    }
+    const cats = ['billing', 'account', 'irrigation', 'devices', 'plans', 'support', 'contact'];
+    if (cats.indexOf(hash) !== -1) filterFaq(hash);
+    else filterFaq('all');
   };
   applyFaqHash();
   window.addEventListener('hashchange', applyFaqHash);
+
+  // Legal page TOC scrollspy
+  const legalToc = document.querySelector('.legal-toc');
+  if (legalToc) {
+    const links = Array.from(legalToc.querySelectorAll('a'));
+    const sections = links
+      .map(a => document.querySelector(a.getAttribute('href')))
+      .filter(Boolean);
+    const setActive = (id) => {
+      links.forEach(a => a.classList.toggle('is-active', a.getAttribute('href') === '#' + id));
+    };
+    if (sections.length && 'IntersectionObserver' in window) {
+      const tocIo = new IntersectionObserver((entries) => {
+        const visible = entries.filter(e => e.isIntersecting)
+          .sort((a, b) => a.target.getBoundingClientRect().top - b.target.getBoundingClientRect().top);
+        if (visible[0]) setActive(visible[0].target.id);
+      }, { rootMargin: '-30% 0px -55% 0px', threshold: 0.01 });
+      sections.forEach(s => tocIo.observe(s));
+    }
+  }
 
   const form = document.getElementById('contactForm');
   const success = document.getElementById('formSuccess');
@@ -861,17 +1202,19 @@
     });
   }
 
-  const openModal = (id) => {
-    const m = document.getElementById('modal-' + id);
-    if (m) m.classList.add('is-open');
-  };
+  // Legacy modal support (only if a modal-backdrop is still present on the page)
   const closeModal = (m) => m.classList.remove('is-open');
   document.querySelectorAll('[data-modal]').forEach(b => {
-    b.addEventListener('click', (e) => { e.preventDefault(); openModal(b.dataset.modal); });
+    b.addEventListener('click', (e) => {
+      e.preventDefault();
+      const m = document.getElementById('modal-' + b.dataset.modal);
+      if (m) m.classList.add('is-open');
+    });
   });
   document.querySelectorAll('.modal-backdrop').forEach(bd => {
     bd.addEventListener('click', (e) => { if (e.target === bd) closeModal(bd); });
-    bd.querySelector('.close').addEventListener('click', () => closeModal(bd));
+    const closeBtn = bd.querySelector('.close');
+    if (closeBtn) closeBtn.addEventListener('click', () => closeModal(bd));
   });
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') document.querySelectorAll('.modal-backdrop.is-open').forEach(closeModal);
