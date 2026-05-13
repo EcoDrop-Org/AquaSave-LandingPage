@@ -461,7 +461,7 @@
   const dict = {
     en: {
       nav_benefits: "Benefits", nav_how: "How it works", nav_features: "Features", nav_about: "About", nav_help: "Help", nav_faq: "FAQ", nav_contact: "Contact us", nav_cta: "Get started",
-      hero_h1_a: "Smart irrigation,", hero_h1_b: "less water waste.",
+      hero_h1_a: "Water with real data,", hero_h1_b: "save every drop with precision.",
       hero_lead: "Monitor soil conditions, control watering from anywhere, and water only when your plants really need it, all from one app.",
       cta_get: "Get started", cta_how: "See how it works",
       tok_moist: "Ambient humidity", tok_flow: "Soil moisture", tok_temp: "Soil temp",
@@ -531,7 +531,7 @@
       cta_h1: "Start watering smarter,", cta_h2: "your plants will thank you.",
       cta_lead: "Set up the smart device, open the app, and let your garden tell you what it needs.",
       cta_get_final: "Get started with AquaSave",
-      foot_slogan: "Smarter irrigation, one drop at a time.", foot_by: "A product by",
+      foot_slogan: "Efficient irrigation for responsible water use.", foot_by: "A product by",
       foot_explore: "Explore", foot_help: "Help", foot_legal: "Legal",
       foot_help_center: "Help Center", foot_faq: "FAQ", foot_contact_us: "Contact",
       foot_terms: "Terms & Conditions", foot_privacy: "Privacy Policy", foot_cookies: "Cookies", foot_legal_index: "Legal overview",
@@ -562,8 +562,8 @@
       faq_q16: "What analytics are available?", faq_a16: "The Analysis screen presents pump tank level in liters and percentage, weekly moisture trend, on-time watering indicators and data-availability messages.",
       faq_q17: "Is my data stored remotely now?", faq_a17: "In this frontend release, most app data is represented locally or through mock/state flows. Remote persistence and production security controls will come with backend integration.",
       faq_empty: "No questions match your search. Try different keywords or contact us.",
-      legal_eyebrow: "Legal", legal_title: "Clear rules, no surprises.",
-      legal_lead: "How AquaSave's website and app experience should be used, what information the app handles, and what will apply as connected services go live. Plain language, no surprises.",
+      legal_eyebrow: "Legal", legal_title: "Transparent terms for responsible use.",
+      legal_lead: "The legal framework for using AquaSave's website, frontend app and future connected services, including data handling, responsibilities and service limits.",
       legal_updated: "Last updated 13 May 2026", legal_reading: "Around 10 min read",
       legal_index: "On this page",
       legal_help_t: "Need a hand?", legal_help_p: "If anything here is unclear, our team is happy to walk you through it in plain words.",
@@ -575,7 +575,7 @@
       legal_s1_c2_t: "Yours to keep", legal_s1_c2_p: "You can request a copy of these terms at any time through the contact form.",
       legal_s1_c3_t: "Updated when needed", legal_s1_c3_p: "We notify users of significant changes through the website, app, or email when those channels are available.",
       legal_s2_t: "Terms & Conditions",
-      legal_s2_p1: "These terms govern your relationship with EcoDrop, the company that builds and operates AquaSave. They describe what you can expect from us, what we expect from you, and how we handle situations where things do not go as planned.",
+      legal_s2_p1: "These terms govern your relationship with EcoDrop, the company that builds and operates AquaSave. They describe permitted use of the website and frontend app, the current limits of connected features, and the responsibilities that will apply as backend and device services are enabled.",
       legal_s2_h1: "Eligibility",
       legal_s2_p2: "You must be at least 16 years old, or the minimum digital-consent age in your country, to create an account. If you use AquaSave on behalf of a household or organization, you confirm you are authorized to accept these terms for them.",
       legal_s2_h2: "Account responsibility",
@@ -585,7 +585,7 @@
       legal_s2_h4: "Plans & access",
       legal_s2_p5: "If paid plans are enabled later, charges will follow the cycle you select. Until then, plan and access information in the app should be treated as informational.",
       legal_s3_t: "Acceptable use",
-      legal_s3_p1: "AquaSave is built to support irrigation for personal gardens, small farms, and similar setups. We ask that you use it responsibly and avoid behaviors that put other people, the service, or shared infrastructure at risk.",
+      legal_s3_p1: "AquaSave is built to support irrigation decisions for domestic gardens, urban horticulture and small growing areas. We ask that you use it responsibly and avoid behaviors that put other people, the service, devices, or shared infrastructure at risk.",
       legal_s3_l1: "Do not attempt to disrupt the service, reverse engineer the firmware, or extract data from accounts that are not yours.",
       legal_s3_l2: "Do not use the device or the API to control irrigation systems you are not authorized to operate.",
       legal_s3_l3: "Do not upload content that is unlawful, harassing, or that infringes someone else's rights.",
@@ -681,7 +681,7 @@
     },
     es: {
       nav_benefits: "Beneficios", nav_how: "Cómo funciona", nav_features: "Funciones", nav_about: "Nosotros", nav_help: "Ayuda", nav_faq: "FAQ", nav_contact: "Contáctanos", nav_cta: "Empezar",
-      hero_h1_a: "Riego inteligente,", hero_h1_b: "menos agua desperdiciada.",
+      hero_h1_a: "Riega con datos reales,", hero_h1_b: "ahorra cada gota con precisión.",
       hero_lead: "Monitorea las condiciones del suelo, controla el riego desde donde estés y riega solo cuando tus plantas lo necesitan, todo desde una app.",
       cta_get: "Empezar", cta_how: "Ver cómo funciona",
       tok_moist: "Humedad de ambiente", tok_flow: "Humedad de suelo", tok_temp: "Temperatura",
@@ -751,7 +751,7 @@
       cta_h1: "Empieza a regar con cabeza,", cta_h2: "tus plantas te lo agradecerán.",
       cta_lead: "Instala el dispositivo, abre la app y deja que tu huerto te diga lo que necesita.",
       cta_get_final: "Empezar con AquaSave",
-      foot_slogan: "Riego más inteligente, gota a gota.", foot_by: "Un producto de",
+      foot_slogan: "Riego eficiente para un uso responsable del agua.", foot_by: "Un producto de",
       foot_explore: "Explorar", foot_help: "Ayuda", foot_legal: "Legal",
       foot_help_center: "Centro de ayuda", foot_faq: "FAQ", foot_contact_us: "Contacto",
       foot_terms: "Términos y condiciones", foot_privacy: "Política de privacidad", foot_cookies: "Cookies", foot_legal_index: "Resumen legal",
@@ -782,8 +782,8 @@
       faq_q16: "¿Qué análisis están disponibles?", faq_a16: "La pantalla de Análisis muestra depósito de la bomba en litros y porcentaje, tendencia semanal de humedad, indicadores de riego a tiempo y mensajes cuando faltan datos.",
       faq_q17: "¿Mis datos ya se guardan remotamente?", faq_a17: "En esta versión frontend, la mayor parte de los datos se representa de forma local o mediante estados de prueba. La persistencia remota y controles de seguridad productivos llegarán con el backend.",
       faq_empty: "Ninguna pregunta coincide con tu búsqueda. Prueba otras palabras o contáctanos.",
-      legal_eyebrow: "Legal", legal_title: "Reglas claras, sin sorpresas.",
-      legal_lead: "Cómo se debe usar el sitio y la experiencia de app de AquaSave, qué información maneja la app y qué aplicará cuando los servicios conectados entren en producción. Lenguaje claro, sin sorpresas.",
+      legal_eyebrow: "Legal", legal_title: "Condiciones transparentes para un uso responsable.",
+      legal_lead: "Marco legal para usar el sitio, la app frontend y los futuros servicios conectados de AquaSave, incluyendo tratamiento de datos, responsabilidades y límites del servicio.",
       legal_updated: "Actualizado el 13 de mayo de 2026", legal_reading: "Lectura de unos 10 min",
       legal_index: "En esta página",
       legal_help_t: "¿Necesitas ayuda?", legal_help_p: "Si algo aquí no queda claro, nuestro equipo te lo explica con palabras sencillas.",
@@ -795,7 +795,7 @@
       legal_s1_c2_t: "Tuyo cuando lo quieras", legal_s1_c2_p: "Puedes solicitar una copia de estos términos en cualquier momento desde el formulario de contacto.",
       legal_s1_c3_t: "Actualizado cuando hace falta", legal_s1_c3_p: "Avisamos los cambios importantes desde el sitio, la app o por correo cuando esos canales estén disponibles.",
       legal_s2_t: "Términos y condiciones",
-      legal_s2_p1: "Estos términos rigen tu relación con EcoDrop, la empresa que construye y opera AquaSave. Describen lo que puedes esperar de nosotros, lo que esperamos de ti y cómo gestionamos las situaciones que se salen del guion.",
+      legal_s2_p1: "Estos términos rigen tu relación con EcoDrop, la empresa que construye y opera AquaSave. Describen el uso permitido del sitio y la app frontend, los límites actuales de las funciones conectadas y las responsabilidades que aplicarán cuando backend y dispositivos estén habilitados.",
       legal_s2_h1: "Quién puede usarlo",
       legal_s2_p2: "Debes tener al menos 16 años, o la edad mínima de consentimiento digital de tu país, para crear una cuenta. Si usas AquaSave en nombre de un hogar u organización, confirmas que tienes autorización para aceptar estos términos por ellos.",
       legal_s2_h2: "Responsabilidad de la cuenta",
@@ -805,7 +805,7 @@
       legal_s2_h4: "Planes y acceso",
       legal_s2_p5: "Si más adelante se habilitan planes pagados, los cobros seguirán el ciclo que elijas. Hasta entonces, la información de planes y acceso dentro de la app debe entenderse como referencial.",
       legal_s3_t: "Uso aceptable",
-      legal_s3_p1: "AquaSave está pensado para apoyar el riego de jardines personales, pequeñas parcelas y casos similares. Te pedimos que lo uses de forma responsable y evites comportamientos que pongan en riesgo a otras personas, al servicio o a la infraestructura compartida.",
+      legal_s3_p1: "AquaSave está pensado para apoyar decisiones de riego en huertos domésticos, horticultura urbana y pequeñas zonas de cultivo. Te pedimos que lo uses de forma responsable y evites comportamientos que pongan en riesgo a otras personas, al servicio, a dispositivos o a la infraestructura compartida.",
       legal_s3_l1: "No intentes interrumpir el servicio, hacer ingeniería inversa del firmware ni extraer datos de cuentas que no son tuyas.",
       legal_s3_l2: "No uses el dispositivo o la API para controlar sistemas de riego sobre los que no tienes autorización.",
       legal_s3_l3: "No subas contenido ilegal, ofensivo o que infrinja derechos de terceros.",
@@ -901,25 +901,44 @@
     }
   };
 
-  const setLang = (lang) => {
-    document.documentElement.lang = lang;
+  const LANG_STORAGE_KEY = 'aquasave:language';
+  const getStoredLang = () => {
+    try {
+      const stored = window.localStorage.getItem(LANG_STORAGE_KEY);
+      return dict[stored] ? stored : 'en';
+    } catch (error) {
+      return 'en';
+    }
+  };
+
+  const setLang = (lang, options = {}) => {
+    const nextLang = dict[lang] ? lang : 'en';
+    const shouldPersist = options.persist !== false;
+    if (shouldPersist) {
+      try {
+        window.localStorage.setItem(LANG_STORAGE_KEY, nextLang);
+      } catch (error) {
+        // Language switching still works even when storage is unavailable.
+      }
+    }
+    document.documentElement.lang = nextLang;
     document.querySelectorAll('[data-i18n]').forEach(el => {
       const key = el.getAttribute('data-i18n');
-      if (dict[lang] && dict[lang][key] != null) {
-        const val = dict[lang][key];
+      if (dict[nextLang] && dict[nextLang][key] != null) {
+        const val = dict[nextLang][key];
         if (typeof val === 'string' && val.indexOf('<') !== -1) el.innerHTML = val;
         else el.textContent = val;
       }
     });
     document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
       const key = el.getAttribute('data-i18n-placeholder');
-      if (dict[lang] && dict[lang][key]) el.placeholder = dict[lang][key];
+      if (dict[nextLang] && dict[nextLang][key]) el.placeholder = dict[nextLang][key];
     });
     document.querySelectorAll('.lang').forEach(langWrap => {
-      langWrap.classList.toggle('is-es', lang === 'es');
+      langWrap.classList.toggle('is-es', nextLang === 'es');
     });
     document.querySelectorAll('.lang button').forEach(b => {
-      b.classList.toggle('is-active', b.dataset.lang === lang);
+      b.classList.toggle('is-active', b.dataset.lang === nextLang);
     });
     // soft fade
     document.querySelectorAll('.lang-fade').forEach(el => {
@@ -928,7 +947,7 @@
     });
   };
   document.querySelectorAll('.lang button').forEach(b => b.addEventListener('click', () => setLang(b.dataset.lang)));
-  setLang('en');
+  setLang(getStoredLang(), { persist: false });
 
   const io = new IntersectionObserver((entries) => {
     entries.forEach(e => {
